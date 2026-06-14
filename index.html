@@ -4,14 +4,133 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wind Suite — ASCE 7 Wind Load Calculator</title>
+
     <!-- Tailwind CSS (required for Wind Calculator UI) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Drafting-paper theme: remap Tailwind's palette to the design tokens.
+         This restyles every existing utility class app-wide WITHOUT touching JSX logic. -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['IBM Plex Sans', 'Helvetica Neue', 'Arial', 'sans-serif'],
+              mono: ['IBM Plex Mono', 'ui-monospace', 'SF Mono', 'Menlo', 'Consolas', 'monospace'],
+            },
+            colors: {
+              // neutrals -> drafting paper (inverted: dark surfaces become light, light text becomes ink)
+              slate: {
+                50:'#FFFFFF', 100:'#1C2733', 200:'#28333E', 300:'#3A4651', 400:'#5A6671',
+                500:'#67737F', 600:'#828C96', 700:'#D8D4C8', 800:'#E4E1D8', 900:'#FFFFFF', 950:'#EFEDE6',
+              },
+              // accent -> blueprint blue (#23577F) with soft tints at the "dark bg" end
+              sky: {
+                50:'#EEF3F8', 100:'#E8EFF4', 200:'#D3E1ED', 300:'#23577F', 400:'#23577F', 500:'#23577F',
+                600:'#23577F', 700:'#23577F', 800:'#CADCEB', 900:'#E8EFF4', 950:'#EEF3F8',
+              },
+              // warning / positive pressure -> amber (#9A6B1F) + amberSoft fills
+              amber: {
+                50:'#FBF6EC', 100:'#F7EEDC', 200:'#EAD9B5', 300:'#9A6B1F', 400:'#9A6B1F', 500:'#9A6B1F',
+                600:'#8A5E18', 700:'#7C5616', 800:'#6E4C13', 900:'#F7EEDC', 950:'#F7EEDC',
+              },
+              // fail / destructive -> red (#B23A2A) + redSoft fills
+              red: {
+                50:'#FBEDEA', 100:'#F8E9E5', 200:'#EDC9C1', 300:'#B23A2A', 400:'#B23A2A', 500:'#B23A2A',
+                600:'#9F3325', 700:'#8C2D21', 800:'#7E281D', 900:'#F8E9E5', 950:'#F8E9E5',
+              },
+              // pass / ok -> green (#2E6B4F) + greenSoft fills
+              emerald: {
+                50:'#EAF3EE', 100:'#E7F1EB', 200:'#C4DDD0', 300:'#2E6B4F', 400:'#2E6B4F', 500:'#2E6B4F',
+                600:'#285E45', 700:'#24543E', 800:'#E7F1EB', 900:'#E7F1EB', 950:'#E7F1EB',
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- IBM Plex Sans (UI) + IBM Plex Mono (data/numbers/labels) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
     <!-- Leaflet CSS (required for WSS map picker) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       html, body, #root { height: 100%; }
-      body { background: #020617; }
+
+      /* warm vellum desk fallback */
+      body {
+        background: #EFEDE6;
+        font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+        color: #1C2733;
+        -webkit-font-smoothing: antialiased;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* §1 tokens, scoped to the app root */
+      .app-root {
+        --page:#EFEDE6; --sheet:#FFFFFF; --panel:#FFFFFF; --input:#FDFDFB;
+        --ink:#1C2733; --faint:#67737F; --rule:#D8D4C8;
+        --accent:#23577F; --accent-soft:#E8EFF4;
+        --red:#B23A2A; --red-soft:#F8E9E5;
+        --green:#2E6B4F; --green-soft:#E7F1EB;
+        --amber:#9A6B1F; --amber-soft:#F7EEDC;
+        --zebra:#FAF9F5; --hover:#F1F4F6;
+        --sans:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;
+        --mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+      }
+
+      /* §4a — engineer's quad-ruled drafting paper (minor 22px, major 110px, blueprint blue) */
+      .paper-desk {
+        background-color: #EFEDE6;
+        background-image:
+          linear-gradient(rgba(35,87,127,.12) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(35,87,127,.12) 1px, transparent 1px),
+          linear-gradient(rgba(35,87,127,.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(35,87,127,.06) 1px, transparent 1px);
+        background-size: 110px 110px, 110px 110px, 22px 22px, 22px 22px;
+      }
+
+      /* §4b — the floating white "sheet": sharp corners, ink edge, 3-layer shadow */
+      .sheet {
+        background: #FFFFFF;
+        border: 1.5px solid #1C2733;
+        border-radius: 0;
+        box-shadow:
+          0 1px 1px rgba(28,39,51,.04),
+          0 10px 24px -14px rgba(28,39,51,.30),
+          4px 4px 0 rgba(28,39,51,.10);
+      }
+      .sheet--enter { animation: rise .5s ease both; }
+      @keyframes rise { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform:none; } }
+
+      /* §4c — title-block tab "sheet number" eyebrow (S-1, S-2, …) */
+      .teye {
+        font-family: 'IBM Plex Mono', ui-monospace, monospace;
+        font-size: 8.5px; letter-spacing: .18em; font-weight: 500;
+        opacity: .55; margin-bottom: 1px; line-height: 1;
+      }
+
+      /* §8 — visible keyboard focus */
+      button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible {
+        outline: 2px solid #23577F; outline-offset: 1.5px; border-radius: 4px;
+      }
+
+      /* §6/§8 — reduced-motion kill-switch */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { transition: none !important; animation: none !important; }
+      }
+
+      /* §8 — clean print: no desk grid, no shadows, white page */
+      @media print {
+        .no-print { display: none !important; }
+        .paper-desk { background-image: none !important; background-color: #FFF !important; padding: 0 !important; }
+        .sheet { box-shadow: none !important; border: none !important; }
+        body { background: #FFF !important; }
+      }
     </style>
   </head>
   <body>
