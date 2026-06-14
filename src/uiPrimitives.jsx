@@ -31,14 +31,14 @@ export function NInput({ value, onChange, min, max, step, error }) {
     <input type="number" value={value} onChange={(e) => onChange(parseFloat(e.target.value) || 0)}
       onWheel={(e) => e.target.blur()}
       min={min} max={max} step={step || "any"}
-      className={"w-full bg-white border rounded px-3 py-1.5 text-sm text-slate-100 font-mono tabular-nums text-right focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition-colors " + (error ? "border-red-500" : "border-slate-700")} />
+      className={"w-full bg-slate-800 border rounded px-3 py-1.5 text-sm text-slate-100 font-mono tabular-nums focus:outline-none focus:border-sky-500/70 focus:ring-1 focus:ring-sky-500/30 transition-colors " + (error ? "border-red-500/60" : "border-slate-600/50")} />
   );
 }
 
 export function Sel({ value, onChange, options }) {
   return (
     <select value={value} onChange={(e) => onChange(e.target.value)}
-      className="w-full bg-white border border-slate-700 rounded px-3 py-1.5 text-sm text-slate-100 font-mono focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition-colors">
+      className="w-full bg-slate-800 border border-slate-600/50 rounded px-3 py-1.5 text-sm text-slate-100 focus:outline-none focus:border-sky-500/70 transition-colors">
       {options.map((o) => <option key={o.value||o} value={o.value||o}>{o.label||o}</option>)}
     </select>
   );
@@ -96,7 +96,7 @@ export function STabs({ tabs, active, onChange }) {
 
 export function TRow({ cells, alt }) {
   return (
-    <tr className={"border-b border-slate-700 hover:bg-[#F1F4F6] transition-colors " + (alt ? "bg-[#FAF9F5]" : "")}>
+    <tr className={"border-b border-slate-800/50 " + (alt ? "bg-slate-900/20" : "")}>
       {cells.map((c, i) => (
         <td key={i} className={"px-2 py-1 text-xs font-mono tabular-nums whitespace-nowrap " + (i > 0 ? "text-right" : "")}>{c}</td>
       ))}
@@ -107,9 +107,9 @@ export function TRow({ cells, alt }) {
 export function THead({ cols }) {
   return (
     <thead>
-      <tr className="border-b-2 border-slate-100" style={{ background:"#F4F2EC" }}>
+      <tr className="border-b-2 border-slate-700">
         {cols.map((c, i) => (
-          <th key={i} className={"px-2 py-1 text-[10px] font-bold text-slate-200 uppercase tracking-wider whitespace-nowrap " + (i === 0 ? "text-left" : "text-right")}>{c}</th>
+          <th key={i} className={"px-2 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap " + (i === 0 ? "text-left" : "text-right")}>{c}</th>
         ))}
       </tr>
     </thead>
@@ -550,7 +550,7 @@ export function DirTab({ d, elev, geo, ug, sub, setSub, rows, addRow, removeRow,
             </div>
           ) : (<>
           <div className="px-3 py-2 rounded border border-slate-700/40 bg-slate-800/30 text-[10px] font-mono text-slate-400 flex flex-wrap gap-x-4 gap-y-0.5">
-            <span>hb = <span className="text-slate-100 font-bold">{elev.hb} ft</span></span>
+            <span>hb = <span className="text-white font-bold">{elev.hb} ft</span></span>
             <span>GCpi = ±{elev.gcpi}</span>
             <span className={elev.anyElev ? "text-emerald-400" : "text-red-400 font-bold"}>
               {elev.anyElev
@@ -736,11 +736,11 @@ function HatchPattern({ id, color, angle = -45, spacing = 6 }) {
 }
 
 // Label with small background pill for legibility on dark isometric faces
-function IsoLabel({ x, y, text, color = "#28333E", size = 9, anchor = "middle" }) {
+function IsoLabel({ x, y, text, color = "#1C2733", size = 9, anchor = "middle" }) {
   return (
     <text x={x} y={y} textAnchor={anchor} fontSize={size} fill={color}
       fontFamily="'JetBrains Mono',monospace" fontWeight="700" paintOrder="stroke"
-      stroke="#FFFFFF" strokeWidth="3" strokeLinejoin="round">
+      stroke="#FDFDFB" strokeWidth="3" strokeLinejoin="round">
       {text}
     </text>
   );
@@ -890,7 +890,7 @@ function DiagLRLoadCases({ codeVer }) {
         {scale > 1 && (
           <div style={{
             position: "absolute", bottom: 6, right: 6,
-            background: "rgba(255,255,255,0.85)", color: "#23577F",
+            background: "rgba(15,23,42,0.75)", color: "#23577F",
             fontSize: 9, fontFamily: "monospace", fontWeight: 700,
             padding: "2px 6px", borderRadius: 4, pointerEvents: "none",
             letterSpacing: "0.05em",
@@ -902,7 +902,7 @@ function DiagLRLoadCases({ codeVer }) {
         {scale === 1 && (
           <div style={{
             position: "absolute", bottom: 6, right: 6,
-            background: "rgba(255,255,255,0.80)", color: "#67737F",
+            background: "rgba(15,23,42,0.65)", color: "#67737F",
             fontSize: 9, fontFamily: "monospace",
             padding: "2px 6px", borderRadius: 4, pointerEvents: "none",
           }}>
@@ -912,10 +912,10 @@ function DiagLRLoadCases({ codeVer }) {
       </div>
 
       {/* Note */}
-      <div style={{ padding: "10px 12px", background: "#E8EFF4", borderTop: "1px solid #D8D4C8" }}>
+      <div style={{ padding: "10px 12px", background: "#FFFFFF", borderTop: "1px solid #F1F4F6" }}>
         {note.split("\n\n").map((para, i) => (
           <p key={i} style={{
-            fontSize: 10, lineHeight: 1.6, color: i === 0 ? "#5A6671" : "#67737F",
+            fontSize: 10, lineHeight: 1.6, color: i === 0 ? "#67737F" : "#67737F",
             fontFamily: "'IBM Plex Sans', sans-serif",
             marginBottom: i < note.split("\n\n").length - 1 ? 8 : 0,
           }}>{para}</p>
@@ -935,9 +935,9 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
         flex: "0 0 60%",
         minWidth: "360px",
         maxWidth: "780px",
-        borderLeft: "1px solid #D8D4C8",
+        borderLeft: "1px solid #F1F4F6",
         overflowY: "auto",
-        background: "#E8EFF4",
+        background: "#FFFFFF",
         display: "flex",
         flexDirection: "column",
         gap: 0,
@@ -945,8 +945,8 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
         <div style={{
           position: "sticky", top: 0, zIndex: 10,
           padding: "7px 12px",
-          background: "#FFFFFF",
-          borderBottom: "1px solid #D8D4C8",
+          background: "#FDFDFB",
+          borderBottom: "1px solid #F1F4F6",
           fontSize: 13, fontWeight: 700, letterSpacing: "0.1em",
           color: "#67737F", fontFamily: "'IBM Plex Sans', sans-serif",
           textTransform: "uppercase",
@@ -954,8 +954,8 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
           Load Cases Diagram
         </div>
         <div style={{ padding: "12px 10px" }}>
-          <div style={{ borderRadius: 6, overflow: "hidden", border: "1px solid #D8D4C8" }}>
-            <div style={{ padding: "5px 10px", background: "#FFFFFF", borderBottom: "1px solid #D8D4C8",
+          <div style={{ borderRadius: 6, overflow: "hidden", border: "1px solid #F1F4F6" }}>
+            <div style={{ padding: "5px 10px", background: "#FDFDFB", borderBottom: "1px solid #F1F4F6",
               fontSize: 12, fontWeight: 700, color: "#67737F",
               letterSpacing: "0.08em", fontFamily: "monospace", textTransform: "uppercase" }}>
               Basic Load Cases — {codeVer === "7-05" ? "ASCE 7-05" : "ASCE 7-10 to 7-22"}
@@ -973,9 +973,9 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
       flex: "0 0 40%",
       minWidth: "260px",
       maxWidth: "520px",
-      borderLeft: "1px solid #D8D4C8",
+      borderLeft: "1px solid #F1F4F6",
       overflowY: "auto",
-      background: "#E8EFF4",
+      background: "#FFFFFF",
       display: "flex",
       flexDirection: "column",
       gap: 0,
@@ -984,8 +984,8 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
       <div style={{
         position: "sticky", top: 0, zIndex: 10,
         padding: "7px 12px",
-        background: "#FFFFFF",
-        borderBottom: "1px solid #D8D4C8",
+        background: "#FDFDFB",
+        borderBottom: "1px solid #F1F4F6",
         fontSize: 13, fontWeight: 700, letterSpacing: "0.1em",
         color: "#67737F", fontFamily: "'IBM Plex Sans', sans-serif",
         textTransform: "uppercase",
@@ -997,8 +997,8 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
       <div style={{ padding: "12px 10px", display: "flex", flexDirection: "column", gap: 16 }}>
 
         {/* Card 1: Normal to Ridge */}
-        <div style={{ borderRadius: 6, overflow: "hidden", border: "1px solid #D8D4C8" }}>
-          <div style={{ padding: "5px 10px", background: "#FFFFFF", borderBottom: "1px solid #D8D4C8",
+        <div style={{ borderRadius: 6, overflow: "hidden", border: "1px solid #F1F4F6" }}>
+          <div style={{ padding: "5px 10px", background: "#FDFDFB", borderBottom: "1px solid #F1F4F6",
             fontSize: 12, fontWeight: 700, color: dirSub === "normal" ? "#23577F" : "#67737F",
             letterSpacing: "0.08em", fontFamily: "monospace", textTransform: "uppercase" }}>
             {dirSub === "normal" ? "▶ " : ""}Wind Normal to Ridge
@@ -1007,8 +1007,8 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
         </div>
 
         {/* Card 2: Parallel to Ridge */}
-        <div style={{ borderRadius: 6, overflow: "hidden", border: "1px solid #D8D4C8" }}>
-          <div style={{ padding: "5px 10px", background: "#FFFFFF", borderBottom: "1px solid #D8D4C8",
+        <div style={{ borderRadius: 6, overflow: "hidden", border: "1px solid #F1F4F6" }}>
+          <div style={{ padding: "5px 10px", background: "#FDFDFB", borderBottom: "1px solid #F1F4F6",
             fontSize: 12, fontWeight: 700, color: dirSub === "parallel" ? "#23577F" : "#67737F",
             letterSpacing: "0.08em", fontFamily: "monospace", textTransform: "uppercase" }}>
             {dirSub === "parallel" ? "▶ " : ""}Wind Parallel to Ridge
@@ -1017,8 +1017,8 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
         </div>
 
         {/* Card 3: Typical Loading */}
-        <div style={{ borderRadius: 6, overflow: "hidden", border: "1px solid #D8D4C8" }}>
-          <div style={{ padding: "5px 10px", background: "#FFFFFF", borderBottom: "1px solid #D8D4C8",
+        <div style={{ borderRadius: 6, overflow: "hidden", border: "1px solid #F1F4F6" }}>
+          <div style={{ padding: "5px 10px", background: "#FDFDFB", borderBottom: "1px solid #F1F4F6",
             fontSize: 12, fontWeight: 700, color: "#67737F",
             letterSpacing: "0.08em", fontFamily: "monospace", textTransform: "uppercase" }}>
             Typical Wind Loading
