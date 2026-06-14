@@ -6,28 +6,75 @@
     <title>Wind Suite — ASCE 7 Wind Load Calculator</title>
     <!-- Tailwind CSS (required for Wind Calculator UI) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Theme: "Engineering Draft Paper" — warm cream chrome, steel-blue accents,
+         navy ink. The slate/sky/amber/emerald/red scales are re-pointed so the
+         app's existing dark-theme utility classes (bg-slate-900, text-slate-400,
+         text-sky-400, text-amber-300, ...) resolve to this light palette.
+         Roles are inverted: dark surface shades (700-950) -> light paper tones,
+         light text shades (100-600) -> dark ink/slate, accents -> steel/bronze. -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              slate: {
+                100: '#1F2933', // strong ink text
+                200: '#222A33', // ink (root text, headings)
+                300: '#2E3A45', // body-strong text
+                400: '#4C5862', // labels / muted-strong
+                500: '#5E6A73', // muted text (most common)
+                600: '#8A8478', // faint text / strong borders
+                700: '#D8D2C7', // hairline borders / divider rules
+                800: '#F0ECE4', // FLIPPED: input fields / cards / box surfaces (signature cream)
+                900: '#F8F5EF', // panels / sidebar / sticky header (pale warm intermediate)
+                950: '#FFFFFF', // FLIPPED: chrome / page background (now white)
+              },
+              sky: {
+                300: '#2E6A99', // emphasized accent text
+                400: '#23557A', // PRIMARY steel accent (links, headers, suction)
+                500: '#1B445F', // focus ring / deep accent text
+                600: '#1B445F',
+                700: '#B7CFDE', // light steel borders
+                800: '#CBDBE7', // light steel borders / chips
+                900: '#E7EFF2', // steel tint (active chips / highlights)
+                950: '#EEF4F8', // palest steel tint
+              },
+              amber: {
+                300: '#A35D17', // POSITIVE pressure values (bold bronze)
+                400: '#A8691A', // notes / warnings text
+                500: '#9A6614', // small notes / borders
+                700: '#E0C79A', // warning borders (light)
+                800: '#E8D2AC',
+                900: '#F0E2C9', // warning backgrounds (tint)
+                950: '#F6EDDC',
+              },
+              emerald: {
+                300: '#2E7D52',
+                400: '#2E7D52', // success text / checks
+                500: '#277048',
+                700: '#BBD9C7', // success borders
+                800: '#DCEBE2',
+                900: '#E5F0EA', // success banner bg
+              },
+              red: {
+                400: '#C0352B', // error text
+                500: '#B3261E', // error strong / focus
+                700: '#E0B0AB', // error borders
+                800: '#E8C2BD',
+                900: '#F4E0DE', // error banner bg
+                950: '#FAEDEB',
+              },
+            },
+          },
+        },
+      };
+    </script>
     <!-- Leaflet CSS (required for WSS map picker) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <!-- IBM Plex Sans + Mono (Structural Suite theme) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       html, body, #root { height: 100%; }
-      /* warm vellum desk ruled in faint blueprint blue (§4a) */
-      body {
-        background-color: #EFEDE6;
-        background-image:
-          linear-gradient(rgba(35,87,127,.12) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(35,87,127,.12) 1px, transparent 1px),
-          linear-gradient(rgba(35,87,127,.06) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(35,87,127,.06) 1px, transparent 1px);
-        background-size: 110px 110px, 110px 110px, 22px 22px, 22px 22px;
-        font-family: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-        color: #1C2733;
-      }
-      @media print { body { background-image: none !important; background-color: #FFFFFF !important; } }
+      body { background: #FFFFFF; }
     </style>
   </head>
   <body>
