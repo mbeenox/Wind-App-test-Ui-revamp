@@ -18,7 +18,7 @@ function WssStatusBadge({ status }) {
 function WssCard({ title, icon, status, children }) {
   const borderColor = { loading:'#B7CFDE', success:'#BBD9C7', error:'#E0B0AB', idle:'#D8D2C7' }[status]||'#D8D2C7';
   return (
-    <div style={{ background:'#FFFFFF', border:`1px solid ${borderColor}`, borderRadius:6, marginBottom:10 }}>
+    <div style={{ background:'#F0ECE4', border:`1px solid ${borderColor}`, borderRadius:6, marginBottom:10 }}>
       <div style={{ display:'flex', alignItems:'center', gap:6, padding:'6px 10px', borderBottom:`1px solid ${borderColor}` }}>
         <span style={{ fontSize:14 }}>{icon}</span>
         <span style={{ fontWeight:700, fontSize:11, color:'#2E3A45', flex:1 }}>{title}</span>
@@ -68,7 +68,7 @@ function WssAutocomplete({ value, onChange, onSelect }) {
     <div style={{ position:'relative' }} ref={wrapRef}>
       <div style={{ display:'flex', gap:4 }}>
         <input
-          style={{ flex:1, background:'#FFFFFF', border:'1px solid #D8D2C7', borderRadius:4, padding:'5px 8px', color:'#1F2933', fontSize:11, fontFamily:'inherit' }}
+          style={{ flex:1, background:'#F0ECE4', border:'1px solid #D8D2C7', borderRadius:4, padding:'5px 8px', color:'#1F2933', fontSize:11, fontFamily:'inherit' }}
           placeholder="e.g. 1234 Main St, Houston TX"
           value={value}
           onChange={e => { onChange(e.target.value); clearTimeout(debRef.current); debRef.current = setTimeout(()=>fetchSugg(e.target.value),320); }}
@@ -79,7 +79,7 @@ function WssAutocomplete({ value, onChange, onSelect }) {
         {loading && <span style={{ color:'#5E6A73', fontSize:10, alignSelf:'center' }}>…</span>}
       </div>
       {open && sugg.length>0 && (
-        <ul style={{ position:'absolute', top:'100%', left:0, right:0, background:'#FFFFFF', border:'1px solid #D8D2C7', borderRadius:4, zIndex:999, listStyle:'none', margin:'2px 0 0', padding:0, maxHeight:200, overflowY:'auto' }}>
+        <ul style={{ position:'absolute', top:'100%', left:0, right:0, background:'#F0ECE4', border:'1px solid #D8D2C7', borderRadius:4, zIndex:999, listStyle:'none', margin:'2px 0 0', padding:0, maxHeight:200, overflowY:'auto' }}>
           {sugg.map((item,i) => {
             const parts = item.display_name.split(', ');
             return (
@@ -269,10 +269,10 @@ export function WSSLookup({ onWindResult, wssState }) {
     </div>
   );
 
-  const iStyle = { width:'100%', background:'#FFFFFF', border:'1px solid #D8D2C7', borderRadius:4, padding:'5px 8px', color:'#1F2933', fontSize:11, fontFamily:'inherit', boxSizing:'border-box' };
+  const iStyle = { width:'100%', background:'#F0ECE4', border:'1px solid #D8D2C7', borderRadius:4, padding:'5px 8px', color:'#1F2933', fontSize:11, fontFamily:'inherit', boxSizing:'border-box' };
   const tabBtn = (mode, label) => (
     <button key={mode} onClick={()=>setLocMode(mode)}
-      style={{ flex:1, padding:'5px 0', background:locMode===mode?'#23557A':'#FFFFFF', color:locMode===mode?'#fff':'#5E6A73', border:'none', borderRadius:0, cursor:'pointer', fontSize:10, fontFamily:'inherit', fontWeight:locMode===mode?700:400 }}>
+      style={{ flex:1, padding:'5px 0', background:locMode===mode?'#23557A':'#F0ECE4', color:locMode===mode?'#fff':'#5E6A73', border:'none', borderRadius:0, cursor:'pointer', fontSize:10, fontFamily:'inherit', fontWeight:locMode===mode?700:400 }}>
       {label}
     </button>
   );
@@ -294,7 +294,7 @@ export function WSSLookup({ onWindResult, wssState }) {
           </div>
           <span style={{ fontSize:10, color:'#2E7D52', fontWeight:700 }}>✓ Auto-sent to Wind Inputs</span>
           <button onClick={handleDownloadPDF}
-            style={{ padding:'4px 10px', background:'#FFFFFF', color:'#23557A', border:'1px solid #D8D2C7', borderRadius:4, cursor:'pointer', fontSize:10, fontWeight:700, fontFamily:'inherit', whiteSpace:'nowrap' }}>
+            style={{ padding:'4px 10px', background:'#F0ECE4', color:'#23557A', border:'1px solid #D8D2C7', borderRadius:4, cursor:'pointer', fontSize:10, fontWeight:700, fontFamily:'inherit', whiteSpace:'nowrap' }}>
             ↓ PDF Report
           </button>
         </div>
@@ -337,7 +337,7 @@ export function WSSLookup({ onWindResult, wssState }) {
       {globalErr && <div style={{ padding:'6px 8px', background:'#F4E0DE', border:'1px solid #E0B0AB', borderRadius:4, color:'#B3261E', fontSize:10, marginBottom:8 }}>{globalErr}</div>}
 
       <button onClick={handleRun} disabled={running}
-        style={{ width:'100%', padding:'8px 0', background:running?'#FFFFFF':'#23557A', color:running?'#5E6A73':'#fff', border:'none', borderRadius:4, cursor:running?'default':'pointer', fontWeight:700, fontSize:11, fontFamily:'inherit', marginBottom:12 }}>
+        style={{ width:'100%', padding:'8px 0', background:running?'#F0ECE4':'#23557A', color:running?'#5E6A73':'#fff', border:'none', borderRadius:4, cursor:running?'default':'pointer', fontWeight:700, fontSize:11, fontFamily:'inherit', marginBottom:12 }}>
         {running?'Running…':'Run Hazard Lookup'}
       </button>
 
@@ -345,7 +345,7 @@ export function WSSLookup({ onWindResult, wssState }) {
       {hasResults && (
         <div>
           {resolvedAddr && (
-            <div style={{ marginBottom:8, padding:'6px 8px', background:'#FFFFFF', border:'1px solid #D8D2C7', borderRadius:4, fontSize:10, color:'#5E6A73' }}>
+            <div style={{ marginBottom:8, padding:'6px 8px', background:'#F0ECE4', border:'1px solid #D8D2C7', borderRadius:4, fontSize:10, color:'#5E6A73' }}>
               📍 {resolvedAddr}
               {siteElevFt!=null && <span style={{ marginLeft:8, color:'#5E6A73' }}>⛰ {Math.round(siteElevFt).toLocaleString()} ft NAVD88</span>}
             </div>
