@@ -439,8 +439,8 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
               value={proj.projectName || ""}
               onChange={(e) => up("projectName", e.target.value)}
               placeholder="e.g. Main Street Office"
-              style={{ width:"100%", padding:"4px 8px", background:"#FDFDFB", border:"1px solid #D8D4C8",
-                borderRadius:4, fontSize:12, color:"#1C2733", fontFamily:"inherit", boxSizing:"border-box" }}
+              style={{ width:"100%", padding:"4px 8px", background:"#FFFFFF", border:"1px solid #D8D2C7",
+                borderRadius:4, fontSize:12, color:"#1F2933", fontFamily:"inherit", boxSizing:"border-box" }}
             />
           </Field>
           <Field label="Job No.">
@@ -448,29 +448,29 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
               value={proj.jobNumber || ""}
               onChange={(e) => up("jobNumber", e.target.value)}
               placeholder="e.g. 2026-042"
-              style={{ width:"100%", padding:"4px 8px", background:"#FDFDFB", border:"1px solid #D8D4C8",
-                borderRadius:4, fontSize:12, color:"#1C2733", fontFamily:"inherit", boxSizing:"border-box" }}
+              style={{ width:"100%", padding:"4px 8px", background:"#FFFFFF", border:"1px solid #D8D2C7",
+                borderRadius:4, fontSize:12, color:"#1F2933", fontFamily:"inherit", boxSizing:"border-box" }}
             />
           </Field>
           {/* WSS lock banner */}
           {wssActive && (
-            <div style={{ marginBottom: 8, padding: "6px 8px", background: wssOverridden ? "#F7EEDC" : "#E8EFF4", borderRadius: 4, border: wssOverridden ? "1px solid #9A6B1F" : "1px solid #D8D4C8", fontSize: 10, color: wssOverridden ? "#9A6B1F" : "#23577F" }}>
+            <div style={{ marginBottom: 8, padding: "6px 8px", background: wssOverridden ? "#F3E7D2" : "#E7EFF2", borderRadius: 4, border: wssOverridden ? "1px solid #D8B488" : "1px solid #B7CFDE", fontSize: 10, color: wssOverridden ? "#9A6614" : "#23557A" }}>
               {wssLocked
-                ? <><span style={{ fontWeight: 700 }}>🔗 From WSS Lookup</span><br />Edition, RC &amp; V are pre-filled.<br /><button onClick={() => setWssLocked(false)} style={{ marginTop: 4, fontSize: 10, color: "#23577F", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}>Edit manually</button></>
-                : <><span style={{ fontWeight: 700, color: "#9A6B1F" }}>⚠ Manually overridden</span><br /><button onClick={() => { up("V_mph", wssData.V_mph); up("risk_category", wssData.risk_category); up("code_version", wssData.code_version); setWssLocked(true); setWssOverridden(false); }} style={{ marginTop: 4, fontSize: 10, color: "#23577F", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}>Restore WSS values</button></>
+                ? <><span style={{ fontWeight: 700 }}>🔗 From WSS Lookup</span><br />Edition, RC &amp; V are pre-filled.<br /><button onClick={() => setWssLocked(false)} style={{ marginTop: 4, fontSize: 10, color: "#23557A", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}>Edit manually</button></>
+                : <><span style={{ fontWeight: 700, color: "#9A6614" }}>⚠ Manually overridden</span><br /><button onClick={() => { up("V_mph", wssData.V_mph); up("risk_category", wssData.risk_category); up("code_version", wssData.code_version); setWssLocked(true); setWssOverridden(false); }} style={{ marginTop: 4, fontSize: 10, color: "#23557A", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}>Restore WSS values</button></>
               }
             </div>
           )}
           <Field label="Edition">
             {wssFieldLocked
-              ? <div style={{ padding: "4px 8px", background: "#FDFDFB", border: "1px solid #D8D4C8", borderRadius: 4, fontSize: 12, color: "#67737F", fontFamily: "inherit" }}>{CODE_VERS.find(c => c.value === proj.code_version)?.label ?? proj.code_version}</div>
+              ? <div style={{ padding: "4px 8px", background: "#FFFFFF", border: "1px solid #CBD9E2", borderRadius: 4, fontSize: 12, color: "#5E6A73", fontFamily: "inherit" }}>{CODE_VERS.find(c => c.value === proj.code_version)?.label ?? proj.code_version}</div>
               : <Sel value={proj.code_version} onChange={(v) => { up("code_version",v); setWssOverridden(true); }} options={CODE_VERS} />
             }
           </Field>
           <div className="grid grid-cols-2 gap-2">
             <Field label="Risk Cat">
               {wssFieldLocked
-                ? <div style={{ padding: "4px 8px", background: "#FDFDFB", border: "1px solid #D8D4C8", borderRadius: 4, fontSize: 12, color: "#67737F", fontFamily: "inherit" }}>{proj.risk_category}</div>
+                ? <div style={{ padding: "4px 8px", background: "#FFFFFF", border: "1px solid #CBD9E2", borderRadius: 4, fontSize: 12, color: "#5E6A73", fontFamily: "inherit" }}>{proj.risk_category}</div>
                 : <Sel value={proj.risk_category} onChange={(v) => { up("risk_category",v); setWssOverridden(true); }} options={["I","II","III","IV"].map((v) => ({value:v,label:v}))} />
               }
             </Field>
@@ -478,7 +478,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
           </div>
           <Field label="V" unit="mph" error={errs.V_mph}>
             {wssFieldLocked
-              ? <div style={{ padding: "4px 8px", background: "#FDFDFB", border: "1px solid #D8D4C8", borderRadius: 4, fontSize: 12, color: "#67737F", fontFamily: "inherit" }}>{proj.V_mph}</div>
+              ? <div style={{ padding: "4px 8px", background: "#FFFFFF", border: "1px solid #CBD9E2", borderRadius: 4, fontSize: 12, color: "#5E6A73", fontFamily: "inherit" }}>{proj.V_mph}</div>
               : <NInput value={proj.V_mph} onChange={(v) => { up("V_mph",v); setWssOverridden(true); }} min={85} max={300} error={errs.V_mph} />
             }
           </Field>
@@ -568,23 +568,23 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
   }
 
   return (
-    <div className="app-root paper-desk flex h-screen text-slate-200" style={{ fontFamily:"'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace" }}>
-      {/* ── SIDEBAR (left title-block sheet) ── */}
-      <aside className="w-72 shrink-0 bg-slate-900 border-r border-slate-800 flex flex-col overflow-y-auto" style={{ borderRight:"1.5px solid #1C2733", boxShadow:"4px 0 14px -10px rgba(28,39,51,.30)" }}>
-        <div className="px-4 py-3 border-b border-slate-800 sticky top-0 bg-slate-900/90 backdrop-blur-sm z-10" style={{ borderBottom:"1px solid #D8D4C8" }}>
+    <div className="flex h-screen bg-slate-950 text-slate-200" style={{ fontFamily:"'JetBrains Mono','Fira Code','SF Mono',monospace" }}>
+      {/* ── SIDEBAR ── */}
+      <aside className="w-72 shrink-0 bg-slate-900 border-r border-slate-700 flex flex-col overflow-y-auto">
+        <div className="px-4 py-3 border-b border-slate-700 sticky top-0 bg-slate-900/90 backdrop-blur-sm z-10">
           <div className="flex items-baseline gap-2 mb-2">
-            <span className="tb-brand" style={{ fontSize:13 }}>WIND&nbsp;LOADS</span>
-            <span className="tb-sub" style={{ color:"#23577F" }}>ASCE&nbsp;7</span>
+            <span className="text-sm font-bold text-slate-100">WIND LOADS</span>
+            <span className="text-[10px] text-sky-500 font-semibold">ASCE 7</span>
           </div>
           {/* Left sidebar tab strip */}
           <div className="flex gap-0 rounded overflow-hidden border border-slate-700" style={{ fontSize: 10 }}>
             <button
               onClick={() => onSideTab("wss")}
-              style={{ flex:1, padding:"4px 0", background: sideTab==="wss" ? "#23577F" : "#F1F4F6", color: sideTab==="wss" ? "#fff" : "#67737F", border:"none", cursor:"pointer", fontWeight: sideTab==="wss" ? 700 : 400, fontFamily:"inherit", fontSize:10 }}
+              style={{ flex:1, padding:"4px 0", background: sideTab==="wss" ? "#23557A" : "#FFFFFF", color: sideTab==="wss" ? "#fff" : "#4C5862", border:"none", cursor:"pointer", fontWeight: sideTab==="wss" ? 700 : 400, fontFamily:"inherit", fontSize:10 }}
             >🌐 Site Hazards</button>
             <button
               onClick={() => onSideTab("wind")}
-              style={{ flex:1, padding:"4px 0", background: sideTab==="wind" ? "#23577F" : "#F1F4F6", color: sideTab==="wind" ? "#fff" : "#67737F", border:"none", borderLeft:"1px solid #D8D4C8", cursor:"pointer", fontWeight: sideTab==="wind" ? 700 : 400, fontFamily:"inherit", fontSize:10 }}
+              style={{ flex:1, padding:"4px 0", background: sideTab==="wind" ? "#23557A" : "#FFFFFF", color: sideTab==="wind" ? "#fff" : "#4C5862", border:"none", borderLeft:"1px solid #D8D2C7", cursor:"pointer", fontWeight: sideTab==="wind" ? 700 : 400, fontFamily:"inherit", fontSize:10 }}
             >💨 Wind Inputs</button>
           </div>
         </div>
@@ -599,9 +599,9 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
       {/* ── MAIN ── */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* ── Sticky header: chips + main tabs + active sub-tabs ── */}
-        <div className="sticky top-0 z-20 bg-slate-900 border-b border-slate-800 shadow-md shadow-slate-950/60">
+        <div className="sticky top-0 z-20 bg-slate-900 border-b border-slate-700 shadow-md shadow-slate-950/60">
           {shared ? (
-            <div className="px-4 py-2 border-b border-slate-800/60 bg-slate-900/80 flex flex-wrap gap-1.5">
+            <div className="px-4 py-2 border-b border-slate-700/60 bg-slate-900/80 flex flex-wrap gap-1.5">
               <Chip label="Ke"   value={shared.ke.toFixed(4)} />
               <Chip label="Kd"   value={shared.kd.toFixed(2)} />
               <Chip label="Kzt"  value={shared.kztH != null ? shared.kztH.toFixed(4) : "1.0000"} />
@@ -613,23 +613,16 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
             </div>
           ) : null}
 
-          {/* Main tabs — title-block style with sheet-number eyebrows (§4c) */}
+          {/* Main tabs */}
           <div className="px-4 pt-2 flex gap-0.5 items-end">
-            {TABS.map((t, i) => {
+            {TABS.map((t) => {
               const dis = t.id === "lr" && lrOk === false;
               const act = tab === t.id;
-              const base = { display:"flex", flexDirection:"column", alignItems:"flex-start",
-                padding:"5px 14px 6px", cursor: dis ? "not-allowed" : "pointer",
-                background: act ? "#E8EFF4" : "transparent", border:"none",
-                borderBottom: act ? "3px solid #23577F" : "3px solid transparent",
-                color: act ? "#23577F" : "#67737F", opacity: dis ? 0.4 : 1, transition:".14s ease" };
               return (
-                <button key={t.id} className="ttab" onClick={() => !dis && setTab(t.id)} disabled={dis}
-                  title={dis && lrR ? lrR.reason : ""} style={base}>
-                  <span className="tb-eyebrow">{"S-" + (i + 1)}</span>
-                  <span style={{ fontFamily:"var(--sans)", fontSize:10, fontWeight:700, letterSpacing:".1em", textTransform:"uppercase", whiteSpace:"nowrap" }}>
-                    {t.label}{t.id==="lr" && lrOk===false ? <span style={{ marginLeft:4, fontSize:8, color:"#9A6B1F" }}>N/A</span> : null}
-                  </span>
+                <button key={t.id} onClick={() => !dis && setTab(t.id)} disabled={dis}
+                  title={dis && lrR ? lrR.reason : ""}
+                  className={"px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase rounded-t transition-all " + (act ? "bg-sky-900 text-sky-400 border border-sky-700 border-t-2 border-t-sky-400 border-b-transparent -mb-px" : dis ? "text-slate-600 cursor-not-allowed opacity-40" : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40")}>
+                  {t.label}{t.id==="lr" && lrOk===false ? <span className="ml-1 text-[8px] text-amber-500">N/A</span> : null}
                 </button>
               );
             })}
@@ -645,24 +638,24 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                 onClick={handleSave}
                 style={{ padding:"4px 10px", fontSize:10, fontWeight:700,
                   letterSpacing:"0.05em", textTransform:"uppercase",
-                  background:"#FFFFFF", border:"1px solid #D8D4C8",
-                  color:"#1C2733", borderRadius:4, cursor:"pointer", marginBottom:2 }}>
+                  background:"#FFFFFF", border:"1px solid #D8D2C7",
+                  color:"#4C5862", borderRadius:4, cursor:"pointer", marginBottom:2 }}>
                 &#128190; Save
               </button>
               <button
                 onClick={() => fileInputRef.current && fileInputRef.current.click()}
                 style={{ padding:"4px 10px", fontSize:10, fontWeight:700,
                   letterSpacing:"0.05em", textTransform:"uppercase",
-                  background:"#FFFFFF", border:"1px solid #D8D4C8",
-                  color:"#1C2733", borderRadius:4, cursor:"pointer", marginBottom:2 }}>
+                  background:"#FFFFFF", border:"1px solid #D8D2C7",
+                  color:"#4C5862", borderRadius:4, cursor:"pointer", marginBottom:2 }}>
                 &#128194; Open
               </button>
               <button
                 onClick={() => setPrintOpen(true)}
-                style={{ padding:"4px 12px", fontSize:10, fontWeight:700,
-                  letterSpacing:"0.06em", textTransform:"uppercase",
-                  background:"#23577F", border:"1.5px solid #23577F",
-                  color:"#FFFFFF", borderRadius:4, cursor:"pointer", marginBottom:2 }}>
+                style={{ padding:"4px 10px", fontSize:10, fontWeight:700,
+                  letterSpacing:"0.05em", textTransform:"uppercase",
+                  background:"#FFFFFF", border:"1px solid #D8D2C7",
+                  color:"#4C5862", borderRadius:4, cursor:"pointer", marginBottom:2 }}>
                 &#128438; Print Report
               </button>
             </div>
@@ -676,7 +669,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
               ...(elevR !== null ? [{ id:"elevated", label:"Elevated Bldg §​27.1.5" }] : []),
             ];
             return (
-              <div className="px-4 pt-2 pb-1.5 flex gap-0.5 border-t border-slate-800/70">
+              <div className="px-4 pt-2 pb-1.5 flex gap-0.5 border-t border-slate-700/70">
                 {dtabs.map(t => (
                   <button key={t.id} onClick={() => setDirSub(t.id)}
                     className={"px-3 py-1 text-[10px] font-bold uppercase tracking-wider rounded-sm transition-colors " + (dirSub === t.id ? "bg-sky-900/50 text-sky-400 border border-sky-700/50" : "text-slate-500 hover:text-slate-300 border border-transparent")}>
@@ -695,7 +688,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
               { id:"parapet",  label:"Parapet" },
             ];
             return (
-              <div className="px-4 pt-2 pb-1.5 flex gap-0.5 border-t border-slate-800/70">
+              <div className="px-4 pt-2 pb-1.5 flex gap-0.5 border-t border-slate-700/70">
                 {ctabs.map(t => (
                   <button key={t.id} onClick={() => setCcSub(t.id)}
                     className={"px-3 py-1 text-[10px] font-bold uppercase tracking-wider rounded-sm transition-colors " + (ccSub === t.id ? "bg-sky-900/50 text-sky-400 border border-sky-700/50" : "text-slate-500 hover:text-slate-300 border border-transparent")}>
@@ -707,7 +700,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
           })() : null}
 
           {tab === "rw" ? (
-            <div className="px-4 pt-2 pb-1.5 flex gap-0.5 border-t border-slate-800/70">
+            <div className="px-4 pt-2 pb-1.5 flex gap-0.5 border-t border-slate-700/70">
               {[
                 { id:"equip",  label:"Rooftop Structures" },
                 { id:"canopy", label:"Attached Canopies" },
@@ -721,7 +714,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
             </div>
           ) : null}
           {tab === "ow" ? (
-            <div className="px-4 pt-2 pb-1.5 flex gap-0.5 border-t border-slate-800/70">
+            <div className="px-4 pt-2 pb-1.5 flex gap-0.5 border-t border-slate-700/70">
               {[
                 { id:"solid",   label:"Solid Signs & Walls" },
                 { id:"open",    label:"Open Signs & Frames" },
@@ -739,14 +732,14 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
 
         {/* ── Print Report Modal ── */}
         {printOpen ? (
-          <div style={{ position:"absolute", inset:0, zIndex:60, background:"rgba(28,39,51,0.35)",
+          <div style={{ position:"absolute", inset:0, zIndex:50, background:"rgba(0,0,0,0.6)",
             display:"flex", alignItems:"center", justifyContent:"center" }}>
-            <div style={{ background:"#FFFFFF", border:"1.5px solid #1C2733", borderRadius:0,
-              padding:"24px 28px", width:360, boxShadow:"6px 6px 0 rgba(28,39,51,0.15)" }}>
-              <div style={{ fontFamily:"var(--sans)", fontSize:13, fontWeight:800, letterSpacing:".02em", color:"#1C2733", marginBottom:16 }}>
+            <div style={{ background:"#FFFFFF", border:"1px solid #D8D2C7", borderRadius:8,
+              padding:"24px 28px", width:360, boxShadow:"0 8px 32px rgba(0,0,0,0.6)" }}>
+              <div style={{ fontSize:13, fontWeight:700, color:"#1F2933", marginBottom:16 }}>
                 Print Wind Load Report
               </div>
-              <div style={{ fontSize:11, color:"#67737F", marginBottom:12 }}>
+              <div style={{ fontSize:11, color:"#5E6A73", marginBottom:12 }}>
                 Project inputs are always included. Select tabs to print:
               </div>
               {[
@@ -771,11 +764,11 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                         setPrintTabs((prev) => prev.filter((x) => x !== t.id));
                       }
                     }}
-                    style={{ accentColor:"#23577F", width:13, height:13 }} />
-                  <span style={{ fontSize:12, color: t.ok ? "#1C2733" : "#67737F" }}>
+                    style={{ accentColor:"#23557A", width:13, height:13 }} />
+                  <span style={{ fontSize:12, color: t.ok ? "#2E3A45" : "#5E6A73" }}>
                     {t.label}
                     {!t.ok
-                      ? <span style={{ marginLeft:6, fontSize:10, color:"#67737F" }}>
+                      ? <span style={{ marginLeft:6, fontSize:10, color:"#5E6A73" }}>
                           (no results)
                         </span>
                       : null}
@@ -795,8 +788,8 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                   disabled={printTabs.length === 0}
                   style={{ flex:1, padding:"7px 0", fontSize:11, fontWeight:700,
                     letterSpacing:"0.05em", textTransform:"uppercase",
-                    background: printTabs.length ? "#23577F" : "#F1F4F6",
-                    color: printTabs.length ? "#fff" : "#67737F",
+                    background: printTabs.length ? "#2E6A99" : "#FFFFFF",
+                    color: printTabs.length ? "#fff" : "#5E6A73",
                     border:"none", borderRadius:4,
                     cursor: printTabs.length ? "pointer" : "default" }}>
                   Generate PDF
@@ -804,8 +797,8 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                 <button
                   onClick={() => setPrintOpen(false)}
                   style={{ padding:"7px 14px", fontSize:11, fontWeight:600,
-                    background:"transparent", color:"#67737F",
-                    border:"1px solid #D8D4C8", borderRadius:4, cursor:"pointer" }}>
+                    background:"transparent", color:"#5E6A73",
+                    border:"1px solid #D8D2C7", borderRadius:4, cursor:"pointer" }}>
                   Cancel
                 </button>
               </div>
@@ -840,7 +833,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
 
               {/* ── Kzt Reference Diagrams ── */}
               {kztIn.topo_type !== "flat" && <div style={{ marginTop: 20 }}>
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", color: "#67737F",
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", color: "#5E6A73",
                   fontFamily: "monospace", textTransform: "uppercase", marginBottom: 8 }}>
                   Topographic Factor Kzt — Fig. 26.8-1
                 </div>
@@ -850,10 +843,10 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                     { img: kztRidgeHillImg,  label: "2D Ridge or 3D Axisymmetrical Hill", alt: "2D Ridge or 3D Axisymmetrical Hill — Kzt topographic factor diagram" },
                   ].map(({ img, label, alt }) => (
                     <div key={label} style={{ flex: "1 1 260px", minWidth: 260, borderRadius: 6,
-                      overflow: "hidden", border: "1px solid #F1F4F6" }}>
-                      <div style={{ padding: "5px 10px", background: "#FDFDFB",
-                        borderBottom: "1px solid #F1F4F6", fontSize: 12, fontWeight: 700,
-                        color: "#67737F", letterSpacing: "0.08em", fontFamily: "monospace",
+                      overflow: "hidden", border: "1px solid #D8D2C7" }}>
+                      <div style={{ padding: "5px 10px", background: "#FFFFFF",
+                        borderBottom: "1px solid #D8D2C7", fontSize: 12, fontWeight: 700,
+                        color: "#5E6A73", letterSpacing: "0.08em", fontFamily: "monospace",
                         textTransform: "uppercase" }}>
                         {label}
                       </div>
@@ -927,7 +920,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                               <span className="text-sky-400">{dirR.parLW.toFixed(1)} psf</span>
                             </div>
                             {lrR.oh != null ? (
-                              <div className="flex justify-between pt-1 border-t border-slate-800/40">
+                              <div className="flex justify-between pt-1 border-t border-slate-700/40">
                                 <span className="text-slate-400">Windward roof overhangs <span className="text-slate-600 text-[10px]">(upward — add to windward roof pressure)</span></span>
                                 <span className="text-sky-400">{lrR.oh.toFixed(1)} psf</span>
                               </div>
@@ -935,7 +928,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                           </div>
                         </div>
                       ) : null}
-                      <div className="space-y-1 pt-1.5 border-t border-slate-800/60 text-[10px] text-slate-500">
+                      <div className="space-y-1 pt-1.5 border-t border-slate-700/60 text-[10px] text-slate-500">
                         <p>** NOTE: Total horiz force shall not be less than that determined by neglecting roof forces (except for MWFRS moment frames).</p>
                         <p className="text-amber-400/80 font-medium">The code requires the MWFRS be designed for a min ultimate force of 16 psf multiplied by the wall area plus an 8 psf force applied to the vertical projection of the roof.</p>
                       </div>
@@ -1121,7 +1114,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                     </thead>
                     <tbody>
                       {ccR.wallPosProfile.map((row, i) => (
-                        <tr key={i} className={"border-b border-slate-800/50 " + (row.z === ccR.theta ? "bg-sky-950/20" : "")}>
+                        <tr key={i} className={"border-b border-slate-700/50 " + (row.z === ccR.theta ? "bg-sky-950/20" : "")}>
                           <td className="px-2 py-1 text-slate-300">{row.z === ccR.theta || i === ccR.wallPosProfile.length-1 ? `h = ${row.z}` : `${row.z === 15 ? "0 to 15'" : row.z + " ft"}`}</td>
                           <td className="px-2 py-1 text-center text-slate-400">{row.kz}</td>
                           <td className="px-2 py-1 text-center text-slate-400">{row.kzt}</td>
@@ -1149,15 +1142,15 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                       </tr>
                     </thead>
                     <tbody>
-                      <tr className="border-b border-slate-800/50 bg-slate-900/25">
+                      <tr className="border-b border-slate-700/50 bg-slate-900/25">
                         <td className="px-2 py-1.5 text-[11px] font-bold text-slate-200">CASE A: Zone 2 &amp; 3</td>
                         {ccR.parPrs.map((r) => <td key={r.area} className="px-1 py-1.5 text-center text-amber-300/90">{r.caseA.toFixed(1)}</td>)}
                       </tr>
-                      <tr className="border-b border-slate-800/50">
+                      <tr className="border-b border-slate-700/50">
                         <td className="px-2 py-1.5 text-[11px] font-bold text-slate-200">CASE B: Interior zone</td>
                         {ccR.parPrs.map((r) => <td key={r.area} className="px-1 py-1.5 text-center text-sky-400/90">{r.caseBint.toFixed(1)}</td>)}
                       </tr>
-                      <tr className="border-b border-slate-800/50 bg-slate-900/25">
+                      <tr className="border-b border-slate-700/50 bg-slate-900/25">
                         <td className="px-2 py-1.5 text-[11px] font-bold text-slate-200">CASE B: Corner zone</td>
                         {ccR.parPrs.map((r) => <td key={r.area} className="px-1 py-1.5 text-center text-sky-400/90">{r.caseBcor.toFixed(1)}</td>)}
                       </tr>
@@ -1227,7 +1220,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                       </thead>
                       <tbody>
                         {obR.mwfrs_normal.cases.map((c, i) => (
-                          <tr key={i} className={"border-b border-slate-800/40 " + (i%2===1 ? "bg-slate-800/20" : "")}>
+                          <tr key={i} className={"border-b border-slate-700/40 " + (i%2===1 ? "bg-slate-800/20" : "")}>
                             <td className="py-1 text-slate-300 font-medium">{c.label}</td>
                             <td className="text-center py-1 text-slate-400">{c.Cnw.toFixed(2)}</td>
                             <td className="text-center py-1 text-slate-400">{c.Cnl.toFixed(2)}</td>
@@ -1253,19 +1246,19 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                         </tr>
                       </thead>
                       <tbody>
-                        <tr className="border-b border-slate-800/40">
+                        <tr className="border-b border-slate-700/40">
                           <td className="py-1 text-slate-400">A — Cn</td>
                           {obR.mwfrs_parallel.caseA_Cn.map((v,i) => <td key={i} className="text-center py-1 text-slate-500">{v.toFixed(1)}</td>)}
                         </tr>
-                        <tr className="border-b border-slate-800/40 bg-slate-800/20">
+                        <tr className="border-b border-slate-700/40 bg-slate-800/20">
                           <td className="py-1 text-slate-300 font-medium">A — p (psf)</td>
                           {obR.mwfrs_parallel.caseA_p.map((v,i) => <td key={i} className={"text-center py-1 font-bold " + (v>=0?"text-amber-300":"text-sky-400")}>{v.toFixed(1)}</td>)}
                         </tr>
-                        <tr className="border-b border-slate-800/40">
+                        <tr className="border-b border-slate-700/40">
                           <td className="py-1 text-slate-400">B — Cn</td>
                           {obR.mwfrs_parallel.caseB_Cn.map((v,i) => <td key={i} className="text-center py-1 text-slate-500">{v.toFixed(1)}</td>)}
                         </tr>
-                        <tr className="border-b border-slate-800/40 bg-slate-800/20">
+                        <tr className="border-b border-slate-700/40 bg-slate-800/20">
                           <td className="py-1 text-slate-300 font-medium">B — p (psf)</td>
                           {obR.mwfrs_parallel.caseB_p.map((v,i) => <td key={i} className={"text-center py-1 font-bold " + (v>=0?"text-amber-300":"text-sky-400")}>{v.toFixed(1)}</td>)}
                         </tr>
@@ -1306,7 +1299,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                       </thead>
                       <tbody>
                         {obR.cc_zones.map((z, i) => (
-                          <tr key={i} className={"border-b border-slate-800/40 " + (i%2===1?"bg-slate-800/20":"")}>
+                          <tr key={i} className={"border-b border-slate-700/40 " + (i%2===1?"bg-slate-800/20":"")}>
                             <td className="py-1 text-[10px] text-slate-400">{z.area_label}</td>
                             <td className="text-center py-1 text-amber-300/90">{z.psf.z3p.toFixed(1)}</td>
                             <td className="text-center py-1 text-sky-400/90">{z.psf.z3n.toFixed(1)}</td>
@@ -1434,7 +1427,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                           </thead>
                           <tbody>
                             {rwR.canopy.rows.map((row,i) => (
-                              <tr key={i} className={"border-b border-slate-800/40 " + (i%2===1?"bg-slate-800/20":"")}>
+                              <tr key={i} className={"border-b border-slate-700/40 " + (i%2===1?"bg-slate-800/20":"")}>
                                 <td className="py-0.5 text-slate-400">{row.area}</td>
                                 <td className="text-right py-0.5 text-sky-400">{row.upperNeg.toFixed(1)}</td>
                                 <td className="text-right py-0.5 text-sky-400">{row.lowerNeg.toFixed(1)}</td>
@@ -1518,19 +1511,19 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                           </tr>
                         </thead>
                         <tbody>
-                          <tr className="border-b border-slate-800/40">
+                          <tr className="border-b border-slate-700/40">
                             <td className="py-1 text-slate-300">Exposed Uplift</td>
                             {s.table.map((r,i) => <td key={i} className="text-center py-1 text-slate-300">{r.exp_up.toFixed(1)}</td>)}
                             <td className="text-center py-1 text-amber-300 font-bold">{s.user_row.exp_up.toFixed(1)}</td>
                             <td className="text-right py-1 text-[10px] text-slate-500 whitespace-nowrap">γE = 1.5</td>
                           </tr>
-                          <tr className="border-b border-slate-800/40 bg-slate-800/20">
+                          <tr className="border-b border-slate-700/40 bg-slate-800/20">
                             <td className="py-1 text-slate-300">Non-exposed Uplift</td>
                             {s.table.map((r,i) => <td key={i} className="text-center py-1 text-slate-300">{r.nonexp_up.toFixed(1)}</td>)}
                             <td className="text-center py-1 text-amber-300 font-bold">{s.user_row.nonexp_up.toFixed(1)}</td>
                             <td className="text-right py-1 text-[10px] text-slate-500 whitespace-nowrap">γE = 1.0</td>
                           </tr>
-                          <tr className="border-b border-slate-800/40">
+                          <tr className="border-b border-slate-700/40">
                             <td className="py-1 text-slate-300">All panels downward</td>
                             {s.table.map((r,i) => <td key={i} className="text-center py-1 text-slate-300">{r.down.toFixed(1)}</td>)}
                             <td className="text-center py-1 text-amber-300 font-bold">{s.user_row.down.toFixed(1)}</td>
@@ -1616,7 +1609,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                             <td colSpan={10} className="py-0.5 text-[10px] font-bold text-slate-300 pl-1">Exposed Zones</td>
                           </tr>
                           {zones.map((zk,zi) => (
-                            <tr key={"exp"+zi} className={"border-b border-slate-800/40 "+(zi%2===1?"bg-slate-800/20":"")}>
+                            <tr key={"exp"+zi} className={"border-b border-slate-700/40 "+(zi%2===1?"bg-slate-800/20":"")}>
                               {zi===0 && <td rowSpan={3} className="py-0.5 text-[10px] text-slate-500 align-middle">γE=1.5</td>}
                               <td className="py-0.5 text-slate-400">{zoneLabels[zi]}</td>
                               {s.tbl_exp.map((r,i)=><td key={i} className="text-right py-0.5 text-sky-400/90">{r[zk].toFixed(1)}</td>)}
@@ -1629,7 +1622,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                             <td colSpan={10} className="py-0.5 text-[10px] font-bold text-slate-300 pl-1">Non Exposed Zones</td>
                           </tr>
                           {zones.map((zk,zi) => (
-                            <tr key={"nexp"+zi} className={"border-b border-slate-800/40 "+(zi%2===1?"bg-slate-800/20":"")}>
+                            <tr key={"nexp"+zi} className={"border-b border-slate-700/40 "+(zi%2===1?"bg-slate-800/20":"")}>
                               {zi===0 && <td rowSpan={3} className="py-0.5 text-[10px] text-slate-500 align-middle">γE=1.0</td>}
                               <td className="py-0.5 text-slate-400">{zoneLabels[zi]}</td>
                               {s.tbl_nexp.map((r,i)=><td key={i} className="text-right py-0.5 text-sky-400/80">{r[zk].toFixed(1)}</td>)}
@@ -1642,7 +1635,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                             <td colSpan={10} className="py-0.5 text-[10px] font-bold text-slate-300 pl-1">All Zones</td>
                           </tr>
                           {zones.map((zk,zi) => (
-                            <tr key={"down"+zi} className={"border-b border-slate-800/40 "+(zi%2===1?"bg-slate-800/20":"")}>
+                            <tr key={"down"+zi} className={"border-b border-slate-700/40 "+(zi%2===1?"bg-slate-800/20":"")}>
                               {zi===0 && <td rowSpan={3} className="py-0.5 text-[10px] text-slate-500 align-middle">γE=1.0</td>}
                               <td className="py-0.5 text-slate-400">{zoneLabels[zi]}</td>
                               {s.tbl_down.map((r,i)=><td key={i} className="text-right py-0.5 text-amber-300/90">{r[zk].toFixed(1)}</td>)}
@@ -1669,7 +1662,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
           {tab === "ow" ? (() => {
             const ug = (k,v) => setGeo(g => ({...g, [k]:v}));
             const Row = ({label, val, unit=""}) => (
-              <div className="flex justify-between items-baseline py-0.5 border-b border-slate-800/40">
+              <div className="flex justify-between items-baseline py-0.5 border-b border-slate-700/40">
                 <span className="text-[11px] text-slate-400">{label}</span>
                 <span className="font-mono text-[11px] text-slate-200">{val}{unit ? <span className="text-slate-500 ml-0.5 text-[10px]">{unit}</span> : null}</span>
               </div>
@@ -1744,7 +1737,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                           </thead>
                           <tbody>
                             {ss.caseCRows.filter(row => row.cf > 0).map((row, i) => (
-                              <tr key={i} className={"border-b border-slate-800/40 " + (i%2===1?"bg-slate-800/20":"")}>
+                              <tr key={i} className={"border-b border-slate-700/40 " + (i%2===1?"bg-slate-800/20":"")}>
                                 <td className="py-0.5 text-slate-400">{row.zone}</td>
                                 <td className="text-right py-0.5 text-slate-300">{row.cf.toFixed(2)}</td>
                                 <td className="text-right py-0.5 text-sky-400 font-bold">{row.f_psf.toFixed(1)}</td>
