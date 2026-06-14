@@ -10,18 +10,18 @@ import { wssGeneratePDF } from './wssReport.js';
 function WssFmt(v, d=3) { if (v==null||isNaN(v)) return 'N/A'; return typeof v==='number'?v.toFixed(d):String(v); }
 
 function WssStatusBadge({ status }) {
-  const map = { loading:['#3b82f6','…'], success:['#22c55e','✓'], error:['#ef4444','✗'], idle:['#64748b','—'] };
+  const map = { loading:['#23577F','…'], success:['#2E6B4F','✓'], error:['#B23A2A','✗'], idle:['#67737F','—'] };
   const [color, sym] = map[status]||map.idle;
   return <span style={{ marginLeft:4, fontWeight:700, color }}>{sym}</span>;
 }
 
 function WssCard({ title, icon, status, children }) {
-  const borderColor = { loading:'#1e40af', success:'#166534', error:'#991b1b', idle:'#334155' }[status]||'#334155';
+  const borderColor = { loading:'#1B4A6E', success:'#2E6B4F', error:'#B23A2A', idle:'#D8D4C8' }[status]||'#D8D4C8';
   return (
-    <div style={{ background:'#0f172a', border:`1px solid ${borderColor}`, borderRadius:6, marginBottom:10 }}>
+    <div style={{ background:'#FFFFFF', border:`1px solid ${borderColor}`, borderRadius:6, marginBottom:10 }}>
       <div style={{ display:'flex', alignItems:'center', gap:6, padding:'6px 10px', borderBottom:`1px solid ${borderColor}` }}>
         <span style={{ fontSize:14 }}>{icon}</span>
-        <span style={{ fontWeight:700, fontSize:11, color:'#cbd5e1', flex:1 }}>{title}</span>
+        <span style={{ fontWeight:700, fontSize:11, color:'#3A4651', flex:1 }}>{title}</span>
         <WssStatusBadge status={status} />
       </div>
       <div style={{ padding:'8px 10px', fontSize:11 }}>{children}</div>
@@ -31,9 +31,9 @@ function WssCard({ title, icon, status, children }) {
 
 function WssRow({ label, value, highlight }) {
   return (
-    <div style={{ display:'flex', justifyContent:'space-between', padding:'2px 0', borderBottom:'1px solid #1e293b', background: highlight?'#0c2340':'transparent' }}>
-      <span style={{ color:'#94a3b8' }}>{label}</span>
-      <span style={{ color: highlight?'#7dd3fc':'#e2e8f0', fontWeight: highlight?700:400 }}>{value ?? 'N/A'}</span>
+    <div style={{ display:'flex', justifyContent:'space-between', padding:'2px 0', borderBottom:'1px solid #D8D4C8', background: highlight?'#E8EFF4':'transparent' }}>
+      <span style={{ color:'#5A6671' }}>{label}</span>
+      <span style={{ color: highlight?'#23577F':'#28333E', fontWeight: highlight?700:400 }}>{value ?? 'N/A'}</span>
     </div>
   );
 }
@@ -68,7 +68,7 @@ function WssAutocomplete({ value, onChange, onSelect }) {
     <div style={{ position:'relative' }} ref={wrapRef}>
       <div style={{ display:'flex', gap:4 }}>
         <input
-          style={{ flex:1, background:'#1e293b', border:'1px solid #334155', borderRadius:4, padding:'5px 8px', color:'#e2e8f0', fontSize:11, fontFamily:'inherit' }}
+          style={{ flex:1, background:'#D8D4C8', border:'1px solid #D8D4C8', borderRadius:4, padding:'5px 8px', color:'#28333E', fontSize:11, fontFamily:'inherit' }}
           placeholder="e.g. 1234 Main St, Houston TX"
           value={value}
           onChange={e => { onChange(e.target.value); clearTimeout(debRef.current); debRef.current = setTimeout(()=>fetchSugg(e.target.value),320); }}
@@ -76,21 +76,21 @@ function WssAutocomplete({ value, onChange, onSelect }) {
           onFocus={() => sugg.length>0&&setOpen(true)}
           autoComplete="off"
         />
-        {loading && <span style={{ color:'#64748b', fontSize:10, alignSelf:'center' }}>…</span>}
+        {loading && <span style={{ color:'#67737F', fontSize:10, alignSelf:'center' }}>…</span>}
       </div>
       {open && sugg.length>0 && (
-        <ul style={{ position:'absolute', top:'100%', left:0, right:0, background:'#1e293b', border:'1px solid #334155', borderRadius:4, zIndex:999, listStyle:'none', margin:'2px 0 0', padding:0, maxHeight:200, overflowY:'auto' }}>
+        <ul style={{ position:'absolute', top:'100%', left:0, right:0, background:'#D8D4C8', border:'1px solid #D8D4C8', borderRadius:4, zIndex:999, listStyle:'none', margin:'2px 0 0', padding:0, maxHeight:200, overflowY:'auto' }}>
           {sugg.map((item,i) => {
             const parts = item.display_name.split(', ');
             return (
               <li key={item.place_id} onMouseDown={()=>sel(item)} onMouseEnter={()=>setActiveIdx(i)}
-                style={{ padding:'6px 10px', cursor:'pointer', background:i===activeIdx?'#0f2040':'transparent', borderBottom:'1px solid #0f172a' }}>
-                <div style={{ fontSize:11, color:'#e2e8f0', fontWeight:600 }}>{parts.slice(0,2).join(', ')}</div>
-                {parts.length>2&&<div style={{ fontSize:10, color:'#64748b' }}>{parts.slice(2,4).join(', ')}</div>}
+                style={{ padding:'6px 10px', cursor:'pointer', background:i===activeIdx?'#E8EFF4':'transparent', borderBottom:'1px solid #FFFFFF' }}>
+                <div style={{ fontSize:11, color:'#28333E', fontWeight:600 }}>{parts.slice(0,2).join(', ')}</div>
+                {parts.length>2&&<div style={{ fontSize:10, color:'#67737F' }}>{parts.slice(2,4).join(', ')}</div>}
               </li>
             );
           })}
-          <li style={{ padding:'4px 10px', fontSize:9, color:'#475569' }}>Powered by OpenStreetMap</li>
+          <li style={{ padding:'4px 10px', fontSize:9, color:'#67737F' }}>Powered by OpenStreetMap</li>
         </ul>
       )}
     </div>
@@ -108,7 +108,7 @@ function WssMapPicker({ onLocationSelect, syncLocation }) {
       const L = window.L;
       const map = L.map(mapRef.current, { center:[38.5,-96], zoom:4 });
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution:'© OpenStreetMap', maxZoom:19 }).addTo(map);
-      const icon = L.divIcon({ className:'', html:'<div style="width:14px;height:14px;background:#e8a020;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.5)"></div>', iconSize:[14,14], iconAnchor:[7,7] });
+      const icon = L.divIcon({ className:'', html:'<div style="width:14px;height:14px;background:#9A6B1F;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(28,39,51,0.30)"></div>', iconSize:[14,14], iconAnchor:[7,7] });
       map.on('click', async (e) => {
         const { lat, lng } = e.latlng;
         if (markerRef.current) { markerRef.current.setLatLng([lat,lng]); } else { markerRef.current = L.marker([lat,lng],{icon}).addTo(map); }
@@ -131,8 +131,8 @@ function WssMapPicker({ onLocationSelect, syncLocation }) {
   }, [syncLocation]);
   return (
     <div>
-      <div ref={mapRef} style={{ height:260, borderRadius:4, border:'1px solid #334155', overflow:'hidden' }} />
-      <div style={{ marginTop:4, fontSize:10, color:'#64748b' }}>📍 {pinLabel}</div>
+      <div ref={mapRef} style={{ height:260, borderRadius:4, border:'1px solid #D8D4C8', overflow:'hidden' }} />
+      <div style={{ marginTop:4, fontSize:10, color:'#67737F' }}>📍 {pinLabel}</div>
     </div>
   );
 }
@@ -146,23 +146,23 @@ function WssRainCard({ rain }) {
   return (
     <div>
       <div style={{ display:'flex', gap:16, marginBottom:8 }}>
-        <div style={{ flex:1, background:'#0c2040', borderRadius:4, padding:8 }}>
-          <div style={{ fontSize:9, color:'#64748b', marginBottom:2 }}>15-min (100-yr)</div>
-          <div style={{ fontSize:14, fontWeight:700, color:'#7dd3fc' }}>{get('15-min','100yr')} <span style={{ fontSize:10, fontWeight:400 }}>in/hr</span></div>
+        <div style={{ flex:1, background:'#E8EFF4', borderRadius:4, padding:8 }}>
+          <div style={{ fontSize:9, color:'#67737F', marginBottom:2 }}>15-min (100-yr)</div>
+          <div style={{ fontSize:14, fontWeight:700, color:'#23577F' }}>{get('15-min','100yr')} <span style={{ fontSize:10, fontWeight:400 }}>in/hr</span></div>
         </div>
-        <div style={{ flex:1, background:'#0c2040', borderRadius:4, padding:8 }}>
-          <div style={{ fontSize:9, color:'#64748b', marginBottom:2 }}>60-min (100-yr)</div>
-          <div style={{ fontSize:14, fontWeight:700, color:'#7dd3fc' }}>{get('60-min','100yr')} <span style={{ fontSize:10, fontWeight:400 }}>in/hr</span></div>
+        <div style={{ flex:1, background:'#E8EFF4', borderRadius:4, padding:8 }}>
+          <div style={{ fontSize:9, color:'#67737F', marginBottom:2 }}>60-min (100-yr)</div>
+          <div style={{ fontSize:14, fontWeight:700, color:'#23577F' }}>{get('60-min','100yr')} <span style={{ fontSize:10, fontWeight:400 }}>in/hr</span></div>
         </div>
       </div>
-      <button onClick={()=>setShow(s=>!s)} style={{ fontSize:10, color:'#38bdf8', background:'none', border:'none', cursor:'pointer', padding:0 }}>
+      <button onClick={()=>setShow(s=>!s)} style={{ fontSize:10, color:'#23577F', background:'none', border:'none', cursor:'pointer', padding:0 }}>
         {show?'▲ Hide Atlas 14 Table':'▼ Show Full Atlas 14 Table'}
       </button>
       {show && (
         <div style={{ overflowX:'auto', marginTop:6 }}>
           <table style={{ width:'100%', fontSize:9, borderCollapse:'collapse' }}>
-            <thead><tr style={{ borderBottom:'1px solid #334155' }}><th style={{ textAlign:'left', padding:'2px 4px', color:'#64748b' }}>Dur</th>{hdrs.map((h,i)=><th key={h} style={{ textAlign:'right', padding:'2px 4px', color:i===6?'#7dd3fc':'#64748b' }}>{h}</th>)}</tr></thead>
-            <tbody>{table.map(row=>{const hl=['15-min','60-min'].includes(row.duration);return(<tr key={row.duration} style={{ background:hl?'#0c1a30':'transparent' }}><td style={{ padding:'2px 4px', color:'#94a3b8' }}>{row.duration}</td>{pers.map((p,i)=><td key={p} style={{ textAlign:'right', padding:'2px 4px', color:hl&&i===6?'#7dd3fc':'#cbd5e1' }}>{WssFmt(row.values[p],3)}</td>)}</tr>);})}</tbody>
+            <thead><tr style={{ borderBottom:'1px solid #D8D4C8' }}><th style={{ textAlign:'left', padding:'2px 4px', color:'#67737F' }}>Dur</th>{hdrs.map((h,i)=><th key={h} style={{ textAlign:'right', padding:'2px 4px', color:i===6?'#23577F':'#67737F' }}>{h}</th>)}</tr></thead>
+            <tbody>{table.map(row=>{const hl=['15-min','60-min'].includes(row.duration);return(<tr key={row.duration} style={{ background:hl?'#E8EFF4':'transparent' }}><td style={{ padding:'2px 4px', color:'#5A6671' }}>{row.duration}</td>{pers.map((p,i)=><td key={p} style={{ textAlign:'right', padding:'2px 4px', color:hl&&i===6?'#23577F':'#3A4651' }}>{WssFmt(row.values[p],3)}</td>)}</tr>);})}</tbody>
           </table>
         </div>
       )}
@@ -264,44 +264,44 @@ export function WSSLookup({ onWindResult, wssState }) {
 
   const inp = (label, content) => (
     <div style={{ marginBottom:8 }}>
-      <div style={{ fontSize:9, color:'#64748b', textTransform:'uppercase', letterSpacing:1, marginBottom:3 }}>{label}</div>
+      <div style={{ fontSize:9, color:'#67737F', textTransform:'uppercase', letterSpacing:1, marginBottom:3 }}>{label}</div>
       {content}
     </div>
   );
 
-  const iStyle = { width:'100%', background:'#1e293b', border:'1px solid #334155', borderRadius:4, padding:'5px 8px', color:'#e2e8f0', fontSize:11, fontFamily:'inherit', boxSizing:'border-box' };
+  const iStyle = { width:'100%', background:'#D8D4C8', border:'1px solid #D8D4C8', borderRadius:4, padding:'5px 8px', color:'#28333E', fontSize:11, fontFamily:'inherit', boxSizing:'border-box' };
   const tabBtn = (mode, label) => (
     <button key={mode} onClick={()=>setLocMode(mode)}
-      style={{ flex:1, padding:'5px 0', background:locMode===mode?'#0369a1':'#1e293b', color:locMode===mode?'#fff':'#64748b', border:'none', borderRadius:0, cursor:'pointer', fontSize:10, fontFamily:'inherit', fontWeight:locMode===mode?700:400 }}>
+      style={{ flex:1, padding:'5px 0', background:locMode===mode?'#23577F':'#D8D4C8', color:locMode===mode?'#fff':'#67737F', border:'none', borderRadius:0, cursor:'pointer', fontSize:10, fontFamily:'inherit', fontWeight:locMode===mode?700:400 }}>
       {label}
     </button>
   );
 
   return (
-    <div style={{ fontSize:11, color:'#e2e8f0' }}>
+    <div style={{ fontSize:11, color:'#28333E' }}>
 
       {/* Send-to-Wind banner */}
       {allDone && w.windSpeed!=null && (
-        <div style={{ marginBottom:10, padding:'8px 10px', background:'#052e16', border:'1px solid #166534', borderRadius:6, display:'flex', alignItems:'center', justifyContent:'space-between', gap:8, flexWrap:'wrap' }}>
+        <div style={{ marginBottom:10, padding:'8px 10px', background:'#E7F1EB', border:'1px solid #2E6B4F', borderRadius:6, display:'flex', alignItems:'center', justifyContent:'space-between', gap:8, flexWrap:'wrap' }}>
           <div style={{ fontSize:10 }}>
-            <span style={{ fontWeight:700, color:'#7dd3fc' }}>V = {Math.round(w.windSpeed)} mph</span>
-            <span style={{ color:'#475569', margin:'0 4px' }}>·</span>
-            <span style={{ color:'#cbd5e1' }}>RC {riskCategory}</span>
-            <span style={{ color:'#475569', margin:'0 4px' }}>·</span>
-            <span style={{ color:'#cbd5e1' }}>ASCE {standard}</span>
-            {w.isHurricane && <span style={{ marginLeft:8, color:'#fbbf24' }}>⚠ Hurricane Region</span>}
-            {w.isSpecialWind && <span style={{ marginLeft:8, color:'#fbbf24' }}>⚠ Special Wind Region</span>}
+            <span style={{ fontWeight:700, color:'#23577F' }}>V = {Math.round(w.windSpeed)} mph</span>
+            <span style={{ color:'#67737F', margin:'0 4px' }}>·</span>
+            <span style={{ color:'#3A4651' }}>RC {riskCategory}</span>
+            <span style={{ color:'#67737F', margin:'0 4px' }}>·</span>
+            <span style={{ color:'#3A4651' }}>ASCE {standard}</span>
+            {w.isHurricane && <span style={{ marginLeft:8, color:'#9A6B1F' }}>⚠ Hurricane Region</span>}
+            {w.isSpecialWind && <span style={{ marginLeft:8, color:'#9A6B1F' }}>⚠ Special Wind Region</span>}
           </div>
-          <span style={{ fontSize:10, color:'#4ade80', fontWeight:700 }}>✓ Auto-sent to Wind Inputs</span>
+          <span style={{ fontSize:10, color:'#2E6B4F', fontWeight:700 }}>✓ Auto-sent to Wind Inputs</span>
           <button onClick={handleDownloadPDF}
-            style={{ padding:'4px 10px', background:'#1e293b', color:'#7dd3fc', border:'1px solid #334155', borderRadius:4, cursor:'pointer', fontSize:10, fontWeight:700, fontFamily:'inherit', whiteSpace:'nowrap' }}>
+            style={{ padding:'4px 10px', background:'#D8D4C8', color:'#23577F', border:'1px solid #D8D4C8', borderRadius:4, cursor:'pointer', fontSize:10, fontWeight:700, fontFamily:'inherit', whiteSpace:'nowrap' }}>
             ↓ PDF Report
           </button>
         </div>
       )}
 
       {/* Location mode tabs */}
-      <div style={{ display:'flex', borderRadius:4, overflow:'hidden', border:'1px solid #334155', marginBottom:8 }}>
+      <div style={{ display:'flex', borderRadius:4, overflow:'hidden', border:'1px solid #D8D4C8', marginBottom:8 }}>
         {[['address','Address'],['latlon','Lat / Lon'],['map','Map']].map(([m,l])=>tabBtn(m,l))}
       </div>
 
@@ -334,10 +334,10 @@ export function WSSLookup({ onWindResult, wssState }) {
         </select>
       )}
 
-      {globalErr && <div style={{ padding:'6px 8px', background:'#450a0a', border:'1px solid #991b1b', borderRadius:4, color:'#fca5a5', fontSize:10, marginBottom:8 }}>{globalErr}</div>}
+      {globalErr && <div style={{ padding:'6px 8px', background:'#F8E9E5', border:'1px solid #B23A2A', borderRadius:4, color:'#B23A2A', fontSize:10, marginBottom:8 }}>{globalErr}</div>}
 
       <button onClick={handleRun} disabled={running}
-        style={{ width:'100%', padding:'8px 0', background:running?'#1e293b':'#0369a1', color:running?'#64748b':'#fff', border:'none', borderRadius:4, cursor:running?'default':'pointer', fontWeight:700, fontSize:11, fontFamily:'inherit', marginBottom:12 }}>
+        style={{ width:'100%', padding:'8px 0', background:running?'#D8D4C8':'#23577F', color:running?'#67737F':'#fff', border:'none', borderRadius:4, cursor:running?'default':'pointer', fontWeight:700, fontSize:11, fontFamily:'inherit', marginBottom:12 }}>
         {running?'Running…':'Run Hazard Lookup'}
       </button>
 
@@ -345,14 +345,14 @@ export function WSSLookup({ onWindResult, wssState }) {
       {hasResults && (
         <div>
           {resolvedAddr && (
-            <div style={{ marginBottom:8, padding:'6px 8px', background:'#0f172a', border:'1px solid #1e293b', borderRadius:4, fontSize:10, color:'#64748b' }}>
+            <div style={{ marginBottom:8, padding:'6px 8px', background:'#FFFFFF', border:'1px solid #D8D4C8', borderRadius:4, fontSize:10, color:'#67737F' }}>
               📍 {resolvedAddr}
-              {siteElevFt!=null && <span style={{ marginLeft:8, color:'#475569' }}>⛰ {Math.round(siteElevFt).toLocaleString()} ft NAVD88</span>}
+              {siteElevFt!=null && <span style={{ marginLeft:8, color:'#67737F' }}>⛰ {Math.round(siteElevFt).toLocaleString()} ft NAVD88</span>}
             </div>
           )}
 
           <WssCard title="Wind" icon="🌬" status={statuses.wind||'idle'}>
-            {w.error?<div style={{color:'#fca5a5'}}>{w.error}</div>:<>
+            {w.error?<div style={{color:'#B23A2A'}}>{w.error}</div>:<>
               <WssRow label="V (mph)" value={w.windSpeed?`${WssFmt(w.windSpeed,0)} mph`:'N/A'} highlight />
               <WssRow label="Hurricane-Prone Region" value={w.isHurricane?'⚠ YES':'No'} />
               <WssRow label="Special Wind Region" value={w.isSpecialWind?'⚠ YES — Verify AHJ':'No'} />
@@ -360,7 +360,7 @@ export function WSSLookup({ onWindResult, wssState }) {
           </WssCard>
 
           <WssCard title="Seismic" icon="🌍" status={statuses.seismic||'idle'}>
-            {s.error?<div style={{color:'#fca5a5'}}>{s.error}</div>:<>
+            {s.error?<div style={{color:'#B23A2A'}}>{s.error}</div>:<>
               <WssRow label="Ss (0.2 sec)" value={WssFmt(s.ss)} highlight />
               <WssRow label="S1 (1.0 sec)" value={WssFmt(s.s1)} highlight />
               <WssRow label="SDS" value={WssFmt(s.sds)} />
@@ -372,15 +372,15 @@ export function WSSLookup({ onWindResult, wssState }) {
           </WssCard>
 
           <WssCard title="Snow" icon="❄" status={statuses.snow||'idle'}>
-            {sn.error?<div style={{color:'#fca5a5'}}>{sn.error}</div>:<>
+            {sn.error?<div style={{color:'#B23A2A'}}>{sn.error}</div>:<>
               <WssRow label="Ground Snow Load (pg)" value={sn.groundSnowLoad!=null?`${Math.round(sn.groundSnowLoad)} psf`:'N/A'} highlight />
               {sn.siteElevFt!=null&&<WssRow label="Site Elevation" value={`${Math.round(sn.siteElevFt).toLocaleString()} ft`} />}
               {sn.elevationTable&&(
                 <div style={{ marginTop:6, fontSize:9 }}>
-                  <div style={{ color:'#64748b', marginBottom:3 }}>* Elevation-dependent pg:</div>
+                  <div style={{ color:'#67737F', marginBottom:3 }}>* Elevation-dependent pg:</div>
                   <table style={{ width:'100%', borderCollapse:'collapse' }}>
-                    <thead><tr><th style={{ textAlign:'left', color:'#64748b', padding:'2px 4px' }}>Up to Elev (ft)</th><th style={{ textAlign:'right', color:'#64748b', padding:'2px 4px' }}>pg (psf)</th></tr></thead>
-                    <tbody>{sn.elevationTable.map((row,i)=><tr key={i}><td style={{ padding:'2px 4px', color:'#94a3b8' }}>{row.elevation.toLocaleString()}</td><td style={{ textAlign:'right', padding:'2px 4px', color:'#cbd5e1' }}>{WssFmt(row.load,1)}</td></tr>)}</tbody>
+                    <thead><tr><th style={{ textAlign:'left', color:'#67737F', padding:'2px 4px' }}>Up to Elev (ft)</th><th style={{ textAlign:'right', color:'#67737F', padding:'2px 4px' }}>pg (psf)</th></tr></thead>
+                    <tbody>{sn.elevationTable.map((row,i)=><tr key={i}><td style={{ padding:'2px 4px', color:'#5A6671' }}>{row.elevation.toLocaleString()}</td><td style={{ textAlign:'right', padding:'2px 4px', color:'#3A4651' }}>{WssFmt(row.load,1)}</td></tr>)}</tbody>
                   </table>
                 </div>
               )}
@@ -390,7 +390,7 @@ export function WSSLookup({ onWindResult, wssState }) {
           </WssCard>
 
           <WssCard title="Ice" icon="🧊" status={statuses.ice||'idle'}>
-            {ic.error?<div style={{color:'#fca5a5'}}>{ic.error}</div>:<>
+            {ic.error?<div style={{color:'#B23A2A'}}>{ic.error}</div>:<>
               <WssRow label="Radial Ice Thickness" value={ic.iceThickness!=null?`${WssFmt(ic.iceThickness,3)} in`:'N/A'} highlight />
               <WssRow label="Concurrent Temp" value={ic.concurrentTemp!=null?`${ic.concurrentTemp} °F`:'N/A'} />
               <WssRow label="Concurrent Gust" value={ic.concurrentGust!=null?`${WssFmt(ic.concurrentGust,1)} mph`:'N/A'} />
@@ -398,7 +398,7 @@ export function WSSLookup({ onWindResult, wssState }) {
           </WssCard>
 
           <WssCard title="Flood" icon="🌊" status={statuses.flood||'idle'}>
-            {fl.error?<div style={{color:'#fca5a5'}}>{fl.error}</div>:<>
+            {fl.error?<div style={{color:'#B23A2A'}}>{fl.error}</div>:<>
               <WssRow label="FEMA Flood Zone" value={fl.floodZone??'N/A'} highlight />
               <WssRow label="SFHA" value={fl.sfha?'⚠ YES':'No'} />
               <WssRow label="BFE" value={fl.bfe!=null?`${fl.bfe} ft (${fl.datum})`:'N/A'} />
@@ -407,8 +407,8 @@ export function WSSLookup({ onWindResult, wssState }) {
           </WssCard>
 
           <WssCard title="Tsunami" icon="🌊" status={statuses.tsunami||'idle'}>
-            {ts.error?<div style={{color:'#fca5a5'}}>{ts.error}</div>
-              :!ts.applicable?<div style={{color:'#64748b',fontSize:10}}>{ts.message}</div>:<>
+            {ts.error?<div style={{color:'#B23A2A'}}>{ts.error}</div>
+              :!ts.applicable?<div style={{color:'#67737F',fontSize:10}}>{ts.message}</div>:<>
               <WssRow label="In Tsunami Design Zone" value={ts.inTDZ?'⚠ YES':'No'} highlight />
               <WssRow label="Runup (MHW)" value={ts.runupMHW!=null?`${WssFmt(ts.runupMHW,2)} ft`:'N/A'} />
               <WssRow label="Runup (NAVD88)" value={ts.runupNAVD!=null?`${WssFmt(ts.runupNAVD,2)} ft`:'N/A'} />
@@ -416,19 +416,19 @@ export function WSSLookup({ onWindResult, wssState }) {
           </WssCard>
 
           <WssCard title="Tornado" icon="🌪" status={statuses.tornado||'idle'}>
-            {tor.error?<div style={{color:'#fca5a5'}}>{tor.error}</div>
-              :!tor.applicable?<div style={{color:'#64748b',fontSize:10}}>{tor.message}</div>:<>
+            {tor.error?<div style={{color:'#B23A2A'}}>{tor.error}</div>
+              :!tor.applicable?<div style={{color:'#67737F',fontSize:10}}>{tor.message}</div>:<>
               <WssRow label="In Tornado-Prone Area" value={tor.inPronArea?'⚠ YES':'No'} highlight />
               {Object.entries(tor.speeds||{}).map(([rp,v])=><WssRow key={rp} label={rp.replace('RP','').replace('K',',000').replace('M',',000,000')+'-yr MRI'} value={v!=null?`${WssFmt(v,0)} mph`:'N/A'} />)}
             </>}
           </WssCard>
 
           <WssCard title="Rain (NOAA Atlas 14)" icon="🌧" status={statuses.rain||'idle'}>
-            {rain.error?<div style={{color:'#fca5a5'}}>{rain.error}</div>
-              :rain.table?<WssRainCard rain={rain} />:<div style={{color:'#64748b'}}>No data</div>}
+            {rain.error?<div style={{color:'#B23A2A'}}>{rain.error}</div>
+              :rain.table?<WssRainCard rain={rain} />:<div style={{color:'#67737F'}}>No data</div>}
           </WssCard>
 
-          <div style={{ padding:'8px 0', fontSize:9, color:'#334155', textAlign:'center' }}>
+          <div style={{ padding:'8px 0', fontSize:9, color:'#D8D4C8', textAlign:'center' }}>
             Data: USGS · ASCE GIS · FEMA NFHL · NOAA Atlas 14 — Verify before use in design.
           </div>
         </div>
