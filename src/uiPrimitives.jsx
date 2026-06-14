@@ -912,7 +912,7 @@ function DiagLRLoadCases({ codeVer }) {
       </div>
 
       {/* Note */}
-      <div style={{ padding: "10px 12px", background: "#F6F2EA", borderTop: "1px solid #D8D2C7" }}>
+      <div style={{ padding: "10px 12px", background: "#F8F5EF", borderTop: "1px solid #D8D2C7" }}>
         {note.split("\n\n").map((para, i) => (
           <p key={i} style={{
             fontSize: 10, lineHeight: 1.6, color: i === 0 ? "#4C5862" : "#5E6A73",
@@ -937,7 +937,7 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
         maxWidth: "780px",
         borderLeft: "1px solid #D8D2C7",
         overflowY: "auto",
-        background: "#F6F2EA",
+        background: "#F8F5EF",
         display: "flex",
         flexDirection: "column",
         gap: 0,
@@ -945,7 +945,7 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
         <div style={{
           position: "sticky", top: 0, zIndex: 10,
           padding: "7px 12px",
-          background: "#FFFFFF",
+          background: "#F0ECE4",
           borderBottom: "1px solid #D8D2C7",
           fontSize: 13, fontWeight: 700, letterSpacing: "0.1em",
           color: "#5E6A73", fontFamily: "'IBM Plex Sans', sans-serif",
@@ -955,7 +955,7 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
         </div>
         <div style={{ padding: "12px 10px" }}>
           <div style={{ borderRadius: 6, overflow: "hidden", border: "1px solid #D8D2C7" }}>
-            <div style={{ padding: "5px 10px", background: "#FFFFFF", borderBottom: "1px solid #D8D2C7",
+            <div style={{ padding: "5px 10px", background: "#F0ECE4", borderBottom: "1px solid #D8D2C7",
               fontSize: 12, fontWeight: 700, color: "#5E6A73",
               letterSpacing: "0.08em", fontFamily: "monospace", textTransform: "uppercase" }}>
               Basic Load Cases — {codeVer === "7-05" ? "ASCE 7-05" : "ASCE 7-10 to 7-22"}
@@ -975,7 +975,7 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
       maxWidth: "520px",
       borderLeft: "1px solid #D8D2C7",
       overflowY: "auto",
-      background: "#F6F2EA",
+      background: "#F8F5EF",
       display: "flex",
       flexDirection: "column",
       gap: 0,
@@ -984,7 +984,7 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
       <div style={{
         position: "sticky", top: 0, zIndex: 10,
         padding: "7px 12px",
-        background: "#FFFFFF",
+        background: "#F0ECE4",
         borderBottom: "1px solid #D8D2C7",
         fontSize: 13, fontWeight: 700, letterSpacing: "0.1em",
         color: "#5E6A73", fontFamily: "'IBM Plex Sans', sans-serif",
@@ -998,7 +998,7 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
 
         {/* Card 1: Normal to Ridge */}
         <div style={{ borderRadius: 6, overflow: "hidden", border: "1px solid #D8D2C7" }}>
-          <div style={{ padding: "5px 10px", background: "#FFFFFF", borderBottom: "1px solid #D8D2C7",
+          <div style={{ padding: "5px 10px", background: "#F0ECE4", borderBottom: "1px solid #D8D2C7",
             fontSize: 12, fontWeight: 700, color: dirSub === "normal" ? "#23557A" : "#5E6A73",
             letterSpacing: "0.08em", fontFamily: "monospace", textTransform: "uppercase" }}>
             {dirSub === "normal" ? "▶ " : ""}Wind Normal to Ridge
@@ -1008,7 +1008,7 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
 
         {/* Card 2: Parallel to Ridge */}
         <div style={{ borderRadius: 6, overflow: "hidden", border: "1px solid #D8D2C7" }}>
-          <div style={{ padding: "5px 10px", background: "#FFFFFF", borderBottom: "1px solid #D8D2C7",
+          <div style={{ padding: "5px 10px", background: "#F0ECE4", borderBottom: "1px solid #D8D2C7",
             fontSize: 12, fontWeight: 700, color: dirSub === "parallel" ? "#23557A" : "#5E6A73",
             letterSpacing: "0.08em", fontFamily: "monospace", textTransform: "uppercase" }}>
             {dirSub === "parallel" ? "▶ " : ""}Wind Parallel to Ridge
@@ -1018,7 +1018,7 @@ export function DiagramPane({ tab, dirSub, codeVer }) {
 
         {/* Card 3: Typical Loading */}
         <div style={{ borderRadius: 6, overflow: "hidden", border: "1px solid #D8D2C7" }}>
-          <div style={{ padding: "5px 10px", background: "#FFFFFF", borderBottom: "1px solid #D8D2C7",
+          <div style={{ padding: "5px 10px", background: "#F0ECE4", borderBottom: "1px solid #D8D2C7",
             fontSize: 12, fontWeight: 700, color: "#5E6A73",
             letterSpacing: "0.08em", fontFamily: "monospace", textTransform: "uppercase" }}>
             Typical Wind Loading
