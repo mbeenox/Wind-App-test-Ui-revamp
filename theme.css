@@ -1,0 +1,168 @@
+/* ============================================================================
+   Structural Suite — UI Theme  (Drafting-paper / blueprint identity)
+   Applied to Wind Load Suite. RESTYLE ONLY — no logic touched.
+
+   This file does two jobs:
+   1. Defines the §1 design tokens + signature surfaces (paper desk, sheet,
+      title-block, focus, reduced-motion, print).
+   2. Remaps the app's existing Tailwind color utilities (slate / sky / amber /
+      emerald / red) onto the drafting palette via scoped !important overrides,
+      so the hundreds of dark-mode utility classes resolve to the light theme
+      without editing every className by hand.
+   Everything is scoped under .app-root so nothing leaks outside the app.
+   ============================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap');
+
+/* ── §1 Tokens + §2 font stacks ───────────────────────────────────────────── */
+:root, .app-root {
+  --page:#EFEDE6; --sheet:#FFFFFF; --panel:#FFFFFF; --input:#FDFDFB;
+  --ink:#1C2733; --faint:#67737F; --rule:#D8D4C8;
+  --accent:#23577F; --accent-soft:#E8EFF4;
+  --red:#B23A2A;   --red-soft:#F8E9E5;
+  --green:#2E6B4F; --green-soft:#E7F1EB;
+  --amber:#9A6B1F; --amber-soft:#F7EEDC;
+  --zebra:#FAF9F5; --hover:#F1F4F6; --panel2:#F7F6F1;
+  --sans:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+}
+
+.app-root{ color:var(--ink); font-family:var(--mono); }
+
+/* ── §4a The drafting-paper desk ──────────────────────────────────────────── */
+.paper-desk{
+  background-color:#EFEDE6;
+  background-image:
+    linear-gradient(rgba(35,87,127,.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(35,87,127,.12) 1px, transparent 1px),
+    linear-gradient(rgba(35,87,127,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(35,87,127,.06) 1px, transparent 1px);
+  background-size:110px 110px, 110px 110px, 22px 22px, 22px 22px;
+}
+
+/* ── §4c Title-block helpers (used by the restyled nav) ───────────────────── */
+.tb-sans{ font-family:var(--sans) !important; }
+.tb-brand{ font-family:var(--sans); font-weight:800; letter-spacing:.04em; color:var(--ink); }
+.tb-sub{ font-family:var(--mono); font-size:8.5px; letter-spacing:.22em; color:var(--faint); font-weight:500; text-transform:uppercase; }
+.tb-eyebrow{ display:block; font-family:var(--mono); font-size:8px; letter-spacing:.18em; font-weight:500; opacity:.6; margin-bottom:1px; }
+
+/* §4c title-block tab hover (non-active reads as the desk's drawing index) */
+.app-root .ttab:hover{ color:var(--accent) !important; background:#F1F5F8 !important; }
+
+/* one-time sheet entrance (respect reduced motion below) */
+@keyframes rise{ from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+.sheet--enter{ animation:rise .5s ease both; }
+
+/* ============================================================================
+   Tailwind utility remap  (scoped + !important so they beat CDN utilities)
+   Substring matchers cover every opacity variant (e.g. /50, /60, /80).
+   ============================================================================ */
+
+/* text — slate scale → ink (bright) / faint (muted) */
+.app-root [class*="text-slate-1"],
+.app-root [class*="text-slate-2"],
+.app-root [class*="text-slate-3"]{ color:var(--ink) !important; }
+.app-root [class*="text-slate-4"],
+.app-root [class*="text-slate-5"],
+.app-root [class*="text-slate-6"],
+.app-root [class*="text-slate-7"]{ color:var(--faint) !important; }
+
+/* surfaces — slate bg → sheet / panel / hover */
+.app-root [class*="bg-slate-9"]{ background-color:var(--sheet) !important; }
+.app-root [class*="bg-slate-8"]{ background-color:var(--panel2) !important; }
+.app-root [class*="bg-slate-7"]{ background-color:var(--hover) !important; }
+
+/* borders — every slate border → hairline rule */
+.app-root [class*="border-slate-"]{ border-color:var(--rule) !important; }
+
+/* accent — sky scale → blueprint blue */
+.app-root [class*="text-sky-"]{ color:var(--accent) !important; }
+.app-root [class*="bg-sky-"]{ background-color:var(--accent-soft) !important; }
+.app-root [class*="border-sky-"]{ border-color:var(--accent) !important; }
+.app-root [class*="ring-sky-"]{ box-shadow:0 0 0 2.5px var(--accent-soft) !important; }
+
+/* status — amber (warning) */
+.app-root [class*="text-amber-"]{ color:var(--amber) !important; }
+.app-root [class*="bg-amber-"]{ background-color:var(--amber-soft) !important; }
+.app-root [class*="border-amber-"]{ border-color:var(--amber) !important; }
+
+/* status — emerald/green (ok) */
+.app-root [class*="text-emerald-"],
+.app-root [class*="text-green-"]{ color:var(--green) !important; }
+.app-root [class*="bg-emerald-"],
+.app-root [class*="bg-green-"]{ background-color:var(--green-soft) !important; }
+.app-root [class*="border-emerald-"],
+.app-root [class*="border-green-"]{ border-color:var(--green) !important; }
+
+/* status — red/rose (fail) */
+.app-root [class*="text-red-"],
+.app-root [class*="text-rose-"]{ color:var(--red) !important; }
+.app-root [class*="bg-red-"],
+.app-root [class*="bg-rose-"]{ background-color:var(--red-soft) !important; }
+.app-root [class*="border-red-"],
+.app-root [class*="border-rose-"]{ border-color:var(--red) !important; }
+
+/* soften the one dark drop-shadow on the header into an ink hairline shadow */
+.app-root [class*="shadow-slate-"]{ box-shadow:0 1px 0 rgba(28,39,51,.06) !important; }
+
+/* native checkbox/radio tick color → blueprint accent (warning ones stay amber) */
+.app-root [class*="accent-sky-"]{ accent-color:var(--accent) !important; }
+.app-root [class*="accent-amber-"]{ accent-color:var(--amber) !important; }
+
+/* keep all data/number utilities on IBM Plex Mono with tabular figures */
+.app-root .font-mono{ font-family:var(--mono) !important; }
+.app-root .tabular-nums{ font-variant-numeric:tabular-nums !important; }
+
+/* ── §5i Data tables — header underline + zebra + hover (scoped to app) ────── */
+.app-root table{ font-variant-numeric:tabular-nums; }
+.app-root table thead th{
+  border-bottom:1.5px solid var(--ink) !important;
+  background:#F7F6F1; color:var(--ink); font-weight:700;
+  text-transform:uppercase; letter-spacing:.06em;
+}
+.app-root table tbody tr:nth-child(even) td{ background:var(--zebra); }
+.app-root table tbody tr:hover td{ background:var(--hover); }
+
+/* ── §5d inputs / selects — accent focus halo ─────────────────────────────── */
+.app-root input[type="number"]{
+  background-color:var(--input) !important;
+  color:var(--accent) !important;
+  text-align:right;
+  font-variant-numeric:tabular-nums;
+}
+.app-root select{ background-color:var(--input) !important; }
+.app-root input:hover, .app-root select:hover{ border-color:var(--accent); }
+.app-root input:focus, .app-root select:focus, .app-root textarea:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 2.5px var(--accent-soft);
+}
+
+/* ── §8 Accessibility: visible keyboard focus on every control ────────────── */
+.app-root button:focus-visible,
+.app-root select:focus-visible,
+.app-root input:focus-visible,
+.app-root a:focus-visible,
+.app-root [tabindex]:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:1.5px;
+  border-radius:4px;
+}
+
+/* ── §6 / §8 Reduced-motion kill switch ───────────────────────────────────── */
+@media (prefers-reduced-motion: reduce){
+  .app-root *, .app-root *::before, .app-root *::after{
+    transition:none !important; animation:none !important;
+  }
+}
+
+/* ── §8 Print: a clean engineering document — no desk, no shadows ──────────── */
+@media print{
+  body{ background:#FFFFFF !important; }
+  .paper-desk{ background-image:none !important; background-color:#FFFFFF !important; }
+  .app-root [class*="shadow-"], .app-root .sheet{ box-shadow:none !important; }
+  .no-print{ display:none !important; }
+}
+
+/* Leaflet tiles/controls must never inherit the remap */
+.app-root .leaflet-container,
+.app-root .leaflet-container *{ font-family:inherit; }
