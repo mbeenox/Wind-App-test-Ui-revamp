@@ -439,8 +439,8 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
               value={proj.projectName || ""}
               onChange={(e) => up("projectName", e.target.value)}
               placeholder="e.g. Main Street Office"
-              style={{ width:"100%", padding:"4px 8px", background:"#0f172a", border:"1px solid #334155",
-                borderRadius:4, fontSize:12, color:"#e2e8f0", fontFamily:"inherit", boxSizing:"border-box" }}
+              style={{ width:"100%", padding:"4px 8px", background:"#FFFFFF", border:"1px solid #D8D4C8",
+                borderRadius:4, fontSize:12, color:"#28333E", fontFamily:"inherit", boxSizing:"border-box" }}
             />
           </Field>
           <Field label="Job No.">
@@ -448,29 +448,29 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
               value={proj.jobNumber || ""}
               onChange={(e) => up("jobNumber", e.target.value)}
               placeholder="e.g. 2026-042"
-              style={{ width:"100%", padding:"4px 8px", background:"#0f172a", border:"1px solid #334155",
-                borderRadius:4, fontSize:12, color:"#e2e8f0", fontFamily:"inherit", boxSizing:"border-box" }}
+              style={{ width:"100%", padding:"4px 8px", background:"#FFFFFF", border:"1px solid #D8D4C8",
+                borderRadius:4, fontSize:12, color:"#28333E", fontFamily:"inherit", boxSizing:"border-box" }}
             />
           </Field>
           {/* WSS lock banner */}
           {wssActive && (
-            <div style={{ marginBottom: 8, padding: "6px 8px", background: wssOverridden ? "#422006" : "#0c2340", borderRadius: 4, border: wssOverridden ? "1px solid #92400e" : "1px solid #1e4d7b", fontSize: 10, color: wssOverridden ? "#fbbf24" : "#7dd3fc" }}>
+            <div style={{ marginBottom: 8, padding: "6px 8px", background: wssOverridden ? "#F7EEDC" : "#E8EFF4", borderRadius: 4, border: wssOverridden ? "1px solid #9A6B1F" : "1px solid #23577F", fontSize: 10, color: wssOverridden ? "#9A6B1F" : "#23577F" }}>
               {wssLocked
-                ? <><span style={{ fontWeight: 700 }}>🔗 From WSS Lookup</span><br />Edition, RC &amp; V are pre-filled.<br /><button onClick={() => setWssLocked(false)} style={{ marginTop: 4, fontSize: 10, color: "#38bdf8", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}>Edit manually</button></>
-                : <><span style={{ fontWeight: 700, color: "#fbbf24" }}>⚠ Manually overridden</span><br /><button onClick={() => { up("V_mph", wssData.V_mph); up("risk_category", wssData.risk_category); up("code_version", wssData.code_version); setWssLocked(true); setWssOverridden(false); }} style={{ marginTop: 4, fontSize: 10, color: "#7dd3fc", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}>Restore WSS values</button></>
+                ? <><span style={{ fontWeight: 700 }}>🔗 From WSS Lookup</span><br />Edition, RC &amp; V are pre-filled.<br /><button onClick={() => setWssLocked(false)} style={{ marginTop: 4, fontSize: 10, color: "#23577F", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}>Edit manually</button></>
+                : <><span style={{ fontWeight: 700, color: "#9A6B1F" }}>⚠ Manually overridden</span><br /><button onClick={() => { up("V_mph", wssData.V_mph); up("risk_category", wssData.risk_category); up("code_version", wssData.code_version); setWssLocked(true); setWssOverridden(false); }} style={{ marginTop: 4, fontSize: 10, color: "#23577F", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}>Restore WSS values</button></>
               }
             </div>
           )}
           <Field label="Edition">
             {wssFieldLocked
-              ? <div style={{ padding: "4px 8px", background: "#0f172a", border: "1px solid #1e3a5f", borderRadius: 4, fontSize: 12, color: "#475569", fontFamily: "inherit" }}>{CODE_VERS.find(c => c.value === proj.code_version)?.label ?? proj.code_version}</div>
+              ? <div style={{ padding: "4px 8px", background: "#FFFFFF", border: "1px solid #BCD0E0", borderRadius: 4, fontSize: 12, color: "#67737F", fontFamily: "inherit" }}>{CODE_VERS.find(c => c.value === proj.code_version)?.label ?? proj.code_version}</div>
               : <Sel value={proj.code_version} onChange={(v) => { up("code_version",v); setWssOverridden(true); }} options={CODE_VERS} />
             }
           </Field>
           <div className="grid grid-cols-2 gap-2">
             <Field label="Risk Cat">
               {wssFieldLocked
-                ? <div style={{ padding: "4px 8px", background: "#0f172a", border: "1px solid #1e3a5f", borderRadius: 4, fontSize: 12, color: "#475569", fontFamily: "inherit" }}>{proj.risk_category}</div>
+                ? <div style={{ padding: "4px 8px", background: "#FFFFFF", border: "1px solid #BCD0E0", borderRadius: 4, fontSize: 12, color: "#67737F", fontFamily: "inherit" }}>{proj.risk_category}</div>
                 : <Sel value={proj.risk_category} onChange={(v) => { up("risk_category",v); setWssOverridden(true); }} options={["I","II","III","IV"].map((v) => ({value:v,label:v}))} />
               }
             </Field>
@@ -478,7 +478,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
           </div>
           <Field label="V" unit="mph" error={errs.V_mph}>
             {wssFieldLocked
-              ? <div style={{ padding: "4px 8px", background: "#0f172a", border: "1px solid #1e3a5f", borderRadius: 4, fontSize: 12, color: "#475569", fontFamily: "inherit" }}>{proj.V_mph}</div>
+              ? <div style={{ padding: "4px 8px", background: "#FFFFFF", border: "1px solid #BCD0E0", borderRadius: 4, fontSize: 12, color: "#67737F", fontFamily: "inherit" }}>{proj.V_mph}</div>
               : <NInput value={proj.V_mph} onChange={(v) => { up("V_mph",v); setWssOverridden(true); }} min={85} max={300} error={errs.V_mph} />
             }
           </Field>
@@ -568,9 +568,9 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
   }
 
   return (
-    <div className="flex h-screen bg-slate-950 text-slate-200" style={{ fontFamily:"'JetBrains Mono','Fira Code','SF Mono',monospace" }}>
+    <div className="app-root paper-desk flex h-screen text-slate-200" style={{ fontFamily:"'IBM Plex Sans','Helvetica Neue',Arial,sans-serif", gap:10, padding:10 }}>
       {/* ── SIDEBAR ── */}
-      <aside className="w-72 shrink-0 bg-slate-900 border-r border-slate-800 flex flex-col overflow-y-auto">
+      <aside className="w-72 shrink-0 bg-slate-900 flex flex-col overflow-y-auto" style={{ border:"1px solid #D8D4C8", boxShadow:"0 1px 2px rgba(28,39,51,.05), 0 6px 16px -12px rgba(28,39,51,.25)", borderRadius:0 }}>
         <div className="px-4 py-3 border-b border-slate-800 sticky top-0 bg-slate-900/90 backdrop-blur-sm z-10">
           <div className="flex items-baseline gap-2 mb-2">
             <span className="text-sm font-bold text-slate-100">WIND LOADS</span>
@@ -580,11 +580,11 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
           <div className="flex gap-0 rounded overflow-hidden border border-slate-700" style={{ fontSize: 10 }}>
             <button
               onClick={() => onSideTab("wss")}
-              style={{ flex:1, padding:"4px 0", background: sideTab==="wss" ? "#0369a1" : "#1e293b", color: sideTab==="wss" ? "#fff" : "#94a3b8", border:"none", cursor:"pointer", fontWeight: sideTab==="wss" ? 700 : 400, fontFamily:"inherit", fontSize:10 }}
+              style={{ flex:1, padding:"4px 0", background: sideTab==="wss" ? "#23577F" : "#D8D4C8", color: sideTab==="wss" ? "#fff" : "#5A6671", border:"none", cursor:"pointer", fontWeight: sideTab==="wss" ? 700 : 400, fontFamily:"inherit", fontSize:10 }}
             >🌐 Site Hazards</button>
             <button
               onClick={() => onSideTab("wind")}
-              style={{ flex:1, padding:"4px 0", background: sideTab==="wind" ? "#0369a1" : "#1e293b", color: sideTab==="wind" ? "#fff" : "#94a3b8", border:"none", borderLeft:"1px solid #334155", cursor:"pointer", fontWeight: sideTab==="wind" ? 700 : 400, fontFamily:"inherit", fontSize:10 }}
+              style={{ flex:1, padding:"4px 0", background: sideTab==="wind" ? "#23577F" : "#D8D4C8", color: sideTab==="wind" ? "#fff" : "#5A6671", border:"none", borderLeft:"1px solid #D8D4C8", cursor:"pointer", fontWeight: sideTab==="wind" ? 700 : 400, fontFamily:"inherit", fontSize:10 }}
             >💨 Wind Inputs</button>
           </div>
         </div>
@@ -597,7 +597,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
       </aside>
 
       {/* ── MAIN ── */}
-      <main className="flex-1 flex flex-col overflow-hidden">
+      <main className="sheet sheet--enter flex-1 flex flex-col overflow-hidden">
         {/* ── Sticky header: chips + main tabs + active sub-tabs ── */}
         <div className="sticky top-0 z-20 bg-slate-900 border-b border-slate-800 shadow-md shadow-slate-950/60">
           {shared ? (
@@ -613,16 +613,17 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
             </div>
           ) : null}
 
-          {/* Main tabs */}
+          {/* Main tabs — drawing title block (S-1…S-N sheet numbers) */}
           <div className="px-4 pt-2 flex gap-0.5 items-end">
-            {TABS.map((t) => {
+            {TABS.map((t, i) => {
               const dis = t.id === "lr" && lrOk === false;
               const act = tab === t.id;
               return (
                 <button key={t.id} onClick={() => !dis && setTab(t.id)} disabled={dis}
                   title={dis && lrR ? lrR.reason : ""}
-                  className={"px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase rounded-t transition-all " + (act ? "bg-slate-800 text-sky-400 border border-slate-700 border-b-transparent -mb-px" : dis ? "text-slate-600 cursor-not-allowed opacity-40" : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40")}>
-                  {t.label}{t.id==="lr" && lrOk===false ? <span className="ml-1 text-[8px] text-amber-500">N/A</span> : null}
+                  className={"flex flex-col items-center leading-none px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase rounded-t transition-all " + (act ? "bg-slate-800 text-sky-400 border border-slate-700 border-b-transparent -mb-px" : dis ? "text-slate-600 cursor-not-allowed opacity-40" : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40")}>
+                  <span className="teye">S-{i + 1}</span>
+                  <span>{t.label}{t.id==="lr" && lrOk===false ? <span className="ml-1 text-[8px] text-amber-500">N/A</span> : null}</span>
                 </button>
               );
             })}
@@ -638,25 +639,25 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                 onClick={handleSave}
                 style={{ padding:"4px 10px", fontSize:10, fontWeight:700,
                   letterSpacing:"0.05em", textTransform:"uppercase",
-                  background:"#0f172a", border:"1px solid #334155",
-                  color:"#94a3b8", borderRadius:4, cursor:"pointer", marginBottom:2 }}>
-                &#128190; Save
+                  background:"#FFFFFF", border:"1px solid #D8D4C8",
+                  color:"#5A6671", borderRadius:4, cursor:"pointer", marginBottom:2 }}>
+                &#23577F; Save
               </button>
               <button
                 onClick={() => fileInputRef.current && fileInputRef.current.click()}
                 style={{ padding:"4px 10px", fontSize:10, fontWeight:700,
                   letterSpacing:"0.05em", textTransform:"uppercase",
-                  background:"#0f172a", border:"1px solid #334155",
-                  color:"#94a3b8", borderRadius:4, cursor:"pointer", marginBottom:2 }}>
-                &#128194; Open
+                  background:"#FFFFFF", border:"1px solid #D8D4C8",
+                  color:"#5A6671", borderRadius:4, cursor:"pointer", marginBottom:2 }}>
+                &#23577F; Open
               </button>
               <button
                 onClick={() => setPrintOpen(true)}
                 style={{ padding:"4px 10px", fontSize:10, fontWeight:700,
                   letterSpacing:"0.05em", textTransform:"uppercase",
-                  background:"#0f172a", border:"1px solid #334155",
-                  color:"#94a3b8", borderRadius:4, cursor:"pointer", marginBottom:2 }}>
-                &#128438; Print Report
+                  background:"#FFFFFF", border:"1px solid #D8D4C8",
+                  color:"#5A6671", borderRadius:4, cursor:"pointer", marginBottom:2 }}>
+                &#2E6B4F; Print Report
               </button>
             </div>
           </div>
@@ -732,14 +733,14 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
 
         {/* ── Print Report Modal ── */}
         {printOpen ? (
-          <div style={{ position:"absolute", inset:0, zIndex:50, background:"rgba(0,0,0,0.6)",
+          <div style={{ position:"absolute", inset:0, zIndex:50, background:"rgba(28,39,51,0.35)",
             display:"flex", alignItems:"center", justifyContent:"center" }}>
-            <div style={{ background:"#0f172a", border:"1px solid #1e293b", borderRadius:8,
-              padding:"24px 28px", width:360, boxShadow:"0 8px 32px rgba(0,0,0,0.6)" }}>
-              <div style={{ fontSize:13, fontWeight:700, color:"#e2e8f0", marginBottom:16 }}>
+            <div style={{ background:"#FFFFFF", border:"1px solid #D8D4C8", borderRadius:8,
+              padding:"24px 28px", width:360, boxShadow:"0 8px 32px rgba(28,39,51,0.35)" }}>
+              <div style={{ fontSize:13, fontWeight:700, color:"#28333E", marginBottom:16 }}>
                 Print Wind Load Report
               </div>
-              <div style={{ fontSize:11, color:"#64748b", marginBottom:12 }}>
+              <div style={{ fontSize:11, color:"#67737F", marginBottom:12 }}>
                 Project inputs are always included. Select tabs to print:
               </div>
               {[
@@ -764,11 +765,11 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                         setPrintTabs((prev) => prev.filter((x) => x !== t.id));
                       }
                     }}
-                    style={{ accentColor:"#38bdf8", width:13, height:13 }} />
-                  <span style={{ fontSize:12, color: t.ok ? "#cbd5e1" : "#475569" }}>
+                    style={{ accentColor:"#23577F", width:13, height:13 }} />
+                  <span style={{ fontSize:12, color: t.ok ? "#3A4651" : "#67737F" }}>
                     {t.label}
                     {!t.ok
-                      ? <span style={{ marginLeft:6, fontSize:10, color:"#475569" }}>
+                      ? <span style={{ marginLeft:6, fontSize:10, color:"#67737F" }}>
                           (no results)
                         </span>
                       : null}
@@ -788,8 +789,8 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                   disabled={printTabs.length === 0}
                   style={{ flex:1, padding:"7px 0", fontSize:11, fontWeight:700,
                     letterSpacing:"0.05em", textTransform:"uppercase",
-                    background: printTabs.length ? "#0ea5e9" : "#1e293b",
-                    color: printTabs.length ? "#fff" : "#475569",
+                    background: printTabs.length ? "#23577F" : "#D8D4C8",
+                    color: printTabs.length ? "#fff" : "#67737F",
                     border:"none", borderRadius:4,
                     cursor: printTabs.length ? "pointer" : "default" }}>
                   Generate PDF
@@ -797,8 +798,8 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                 <button
                   onClick={() => setPrintOpen(false)}
                   style={{ padding:"7px 14px", fontSize:11, fontWeight:600,
-                    background:"transparent", color:"#64748b",
-                    border:"1px solid #334155", borderRadius:4, cursor:"pointer" }}>
+                    background:"transparent", color:"#67737F",
+                    border:"1px solid #D8D4C8", borderRadius:4, cursor:"pointer" }}>
                   Cancel
                 </button>
               </div>
@@ -833,7 +834,7 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
 
               {/* ── Kzt Reference Diagrams ── */}
               {kztIn.topo_type !== "flat" && <div style={{ marginTop: 20 }}>
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", color: "#475569",
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", color: "#67737F",
                   fontFamily: "monospace", textTransform: "uppercase", marginBottom: 8 }}>
                   Topographic Factor Kzt — Fig. 26.8-1
                 </div>
@@ -843,10 +844,10 @@ export default function WindCalcInputs({ wssData, wssState, sideTab, onSideTab, 
                     { img: kztRidgeHillImg,  label: "2D Ridge or 3D Axisymmetrical Hill", alt: "2D Ridge or 3D Axisymmetrical Hill — Kzt topographic factor diagram" },
                   ].map(({ img, label, alt }) => (
                     <div key={label} style={{ flex: "1 1 260px", minWidth: 260, borderRadius: 6,
-                      overflow: "hidden", border: "1px solid #1e293b" }}>
-                      <div style={{ padding: "5px 10px", background: "#0f172a",
-                        borderBottom: "1px solid #1e293b", fontSize: 12, fontWeight: 700,
-                        color: "#475569", letterSpacing: "0.08em", fontFamily: "monospace",
+                      overflow: "hidden", border: "1px solid #D8D4C8" }}>
+                      <div style={{ padding: "5px 10px", background: "#FFFFFF",
+                        borderBottom: "1px solid #D8D4C8", fontSize: 12, fontWeight: 700,
+                        color: "#67737F", letterSpacing: "0.08em", fontFamily: "monospace",
                         textTransform: "uppercase" }}>
                         {label}
                       </div>
